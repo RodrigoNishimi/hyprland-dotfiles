@@ -15,6 +15,11 @@ local c = setmetatable(theme.colors, { __index = function() return "NONE" end })
 vim.opt.runtimepath:append(vim.fn.expand("~/plugins/gruber-darker"))
 
 vim.pack.add({ gh("EdenEast/nightfox.nvim") })
+vim.pack.add({ gh("folke/tokyonight.nvim") })
+
+require("tokyonight").setup({
+    transparent = transparent,
+})
 
 require("nightfox").setup({
     options = {
