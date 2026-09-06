@@ -13,6 +13,18 @@ spec.loader.exec_module(m)
 
 
 class Installation(unittest.TestCase):
+    def test_original_machine_snapshot_uses_current_assets_and_supported_refresh_rate(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            home = Path(tmp)
+            m.install(SimpleNamespace(home=home, source=m.REPO / 'snapshot', dry_run=False,
+                                      monitors='original', gpu='original'))
+            wallpaper = home / '.config/hypr/hyprpaper.conf'
+            monitors = home / '.config/hypr/conf/monitors.lua'
+            self.assertIn(str(home / '.local/share/hyprland-dotfiles/wallpapers/tropical-beach.jpeg'),
+                          wallpaper.read_text())
+            self.assertIn('1920x1080@60', monitors.read_text())
+            self.assertNotIn('1920x1080@144', monitors.read_text())
+
     def test_full_snapshot_build_and_hyprland_validation(self):
         with tempfile.TemporaryDirectory() as tmp:
             home = Path(tmp)
