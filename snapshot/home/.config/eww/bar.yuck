@@ -1,0 +1,130 @@
+;; ==================================================================
+;; GERADO por lua/build.lua a partir de lua/tokens.lua + lua/bar.lua.
+;; NÃO EDITE — rode `lua ~/.config/eww/lua/build.lua`.
+;;
+;; Barra do "Hyprland Rice Kit", seção 02: ilhas flutuantes de 40px
+;; com margem de 14px.
+;; ==================================================================
+
+;; ── Fontes de dados da barra ──────────────────────────────────────
+;; workspaces-output escuta scripts/workspace.sh; trayrev,
+;; ctlrev, wifictlrev, wifistatus, bluetooth, coretemp e get_vol
+;; continuam definidos em eww.yuck.
+
+(defpoll tn_clock    :interval "5s"  :initial ""      "date +%H:%M")
+(defpoll tn_date     :interval "60s" :initial ""      "./scripts/bardate.sh")
+(defpoll tn_volmute  :interval "1s"  :initial "false" "./scripts/muted.sh")
+(defpoll tn_bat      :interval "10s" :initial "{\"cap\":0,\"charging\":false,\"present\":false}"
+                     "./scripts/batstate.sh")
+(deflisten tn_window :initial ""     "./scripts/window.sh")
+
+(deflisten workspaces-output :initial "(box :class \"tn-ws\" :valign \"center\" :orientation \"h\" :spacing 5 :space-evenly \"false\" (eventbox :onclick \"./scripts/switch-workspace.sh 1\" :cursor \"pointer\" :class \"tn-hit\" (box :valign \"center\" :class \"tn-ws-chip tn-ws-active\" (label :yalign 0.5 :text \"1\"))) (eventbox :onclick \"./scripts/switch-workspace.sh 2\" :cursor \"pointer\" :class \"tn-hit\" (box :valign \"center\" :class \"tn-ws-chip tn-ws-free\" (label :yalign 0.5 :text \"2\"))) (eventbox :onclick \"./scripts/switch-workspace.sh 3\" :cursor \"pointer\" :class \"tn-hit\" (box :valign \"center\" :class \"tn-ws-chip tn-ws-free\" (label :yalign 0.5 :text \"3\"))) (eventbox :onclick \"./scripts/switch-workspace.sh 4\" :cursor \"pointer\" :class \"tn-hit\" (box :valign \"center\" :class \"tn-ws-chip tn-ws-free\" (label :yalign 0.5 :text \"4\"))) (eventbox :onclick \"./scripts/switch-workspace.sh 5\" :cursor \"pointer\" :class \"tn-hit\" (box :valign \"center\" :class \"tn-ws-chip tn-ws-free\" (label :yalign 0.5 :text \"5\"))) (eventbox :onclick \"./scripts/switch-workspace.sh 6\" :cursor \"pointer\" :class \"tn-hit\" (box :valign \"center\" :class \"tn-ws-chip tn-ws-free\" (label :yalign 0.5 :text \"6\"))))" "./scripts/workspace.sh")
+
+(defvar osd_kind "volume")
+(defvar osd_value 0)
+(defvar osd_muted false)
+(defvar osd_label "0")
+
+(defwidget tn-workspaces []
+    (box :class "tn-island tn-island-ws" :orientation "h" :space-evenly false :spacing 8
+        (literal :valign "center" :content workspaces-output)))
+
+(defwidget tn-window []
+    (revealer :transition "slideright" :duration "250ms" :reveal {tn_window != ""}
+        (box :class "tn-island tn-island-window" :orientation "h" :space-evenly false :spacing 10
+            (label :class "tn-ico tn-ico-sm tn-ico-muted" :text "")
+            (label :class "tn-window-title" :limit-width 42 :tooltip tn_window :show-truncated true :text tn_window))))
+
+(defwidget tn-clock []
+    (eventbox :class "tn-hit" :cursor "pointer" :timeout "3s" :onclick "./scripts/calendar.sh"
+        (box :class "tn-island tn-island-clock" :orientation "h" :space-evenly false :spacing 14
+            (label :class "tn-clock-time" :text tn_clock)
+            (box :class "tn-sep" :valign "center")
+            (label :class "tn-clock-date" :text tn_date))))
+
+(defwidget tn-stat [icon tone value]
+    (box :class "tn-stat" :orientation "h" :space-evenly false :spacing 6
+        (label :class "tn-ico tn-ico-sm ${tone}" :text icon)
+        (label :class "tn-stat-value" :text value)))
+
+(defwidget tn-sysinfo []
+    (box :class "tn-island" :orientation "h" :space-evenly false :spacing 14
+        (tn-stat :icon "" :tone "tn-ico-cpu" :value "${round(EWW_CPU.avg,0)}%")
+        (tn-stat :icon "" :tone "tn-ico-ram" :value "${round(EWW_RAM.used_mem_perc,0)}%")
+        (tn-stat :icon "" :tone "tn-ico-temp" :value "${coretemp.package}°")))
+
+(defwidget tn-conn []
+    (box :class "tn-island" :orientation "h" :space-evenly false :spacing 14
+        (eventbox :timeout "3s" :class "tn-hit" :cursor "pointer" :tooltip "Bluetooth: ${bluetooth.label} — clique para ligar/desligar" :onclick "setsid -f ./scripts/bluetooth.sh toggle"
+            (label :class "tn-ico ${bluetooth.powered ? "tn-ico-accent" : "tn-ico-muted"}" :text {bluetooth.powered && bluetooth.count > 0 ? "" : bluetooth.powered ? "" : ""}))
+        (eventbox :timeout "3s" :class "tn-hit" :cursor "pointer" :tooltip "${wifistatus.ssid}" :onclick "./scripts/wifictl.sh"
+            (box :orientation "h" :space-evenly false :spacing 6
+                (label :class "tn-ico ${wifistatus.ssid != "Disconnected" ? "tn-ico-subtle" : "tn-ico-muted"}" :text {wifistatus.ssid != "Disconnected" ? "" : ""})
+                (label :class "tn-stat-value" :limit-width 7 :show-truncated false :text {wifistatus.ssid != "Disconnected" ? wifistatus.ssid : "off"})))
+        (eventbox :timeout "3s" :class "tn-hit" :cursor "pointer" :onscroll "[ {} = up ] && pamixer -i 2 || pamixer -d 2" :tooltip "Clique para mutar/desmutar; role para ajustar" :onmiddleclick "./scripts/usrctl.sh" :onclick "pamixer -t"
+            (box :orientation "h" :space-evenly false :spacing 6
+                (label :class "tn-ico ${tn_volmute ? "tn-ico-muted" : "tn-ico-subtle"}" :text {tn_volmute ? "" : get_vol < 40 ? "" : ""})))))
+
+(defwidget tn-battery []
+    (box :class "tn-island" :visible {tn_bat.present} :orientation "h" :space-evenly false :spacing 8
+        (label :class "tn-ico ${tn_bat.charging ? "tn-ico-ok" : tn_bat.cap <= 15 ? "tn-ico-crit" : tn_bat.cap <= 30 ? "tn-ico-warn" : "tn-ico-ok"}" :text {tn_bat.charging ? "" : tn_bat.cap >= 95 ? "" : tn_bat.cap >= 80 ? "" : tn_bat.cap >= 60 ? "" : tn_bat.cap >= 45 ? "" : tn_bat.cap >= 30 ? "" : tn_bat.cap >= 15 ? "" : ""})
+        (label :class "tn-stat-value" :text "${tn_bat.cap}%")))
+
+(defwidget tn-tray []
+    (box :orientation "h" :space-evenly false :spacing 10
+        (revealer :transition "slideleft" :duration "250ms" :reveal trayrev
+            (box :class "tn-island tn-island-tray"
+                (systray :space-evenly true :icon-size 16 :prepend-new true)))
+        (eventbox :class "tn-hit" :cursor "pointer" :timeout "3s" :onclick "${trayrev ? "/usr/bin/eww update trayrev=false" : "/usr/bin/eww update trayrev=true"}"
+            (box :class "tn-island tn-island-square tn-tray-toggle"
+                (label :class "tn-ico tn-ico-sm tn-ico-muted" :text {trayrev ? "" : ""})))))
+
+(defwidget tn-notifications []
+    (eventbox :class "tn-hit" :cursor "pointer" :timeout "3s" :tooltip "${notifications.dnd ? "Não perturbe ativo" : notifications.count > 0 ? "${notifications.count} notificações" : "Sem notificações"}" :onrightclick "./scripts/notifications.sh toggle-dnd" :onclick "./scripts/usrctl.sh"
+        (box :class "tn-island tn-island-notifications ${notifications.count > 0 ? "tn-notifications-with-count" : "tn-notifications-icon-only"}" :space-evenly false
+            (label :class "tn-ico ${notifications.dnd ? "tn-ico-muted" : "tn-ico-subtle"}" :hexpand {notifications.count == 0} :halign "center" :xalign 0.5 :text {notifications.dnd ? "" : ""})
+            (revealer :transition "slideright" :duration "200ms" :reveal {notifications.count > 0}
+                (label :class "tn-notification-count" :text "${notifications.count}")))))
+
+(defwidget tn-power []
+    (eventbox :class "tn-hit" :cursor "pointer" :timeout "3s" :tooltip " barra de usuário " :onclick "./scripts/usrctl.sh"
+        (box :class "tn-island tn-island-square tn-power"
+            (label :class "tn-ico tn-ico-lg tn-ico-arch tn-ico-accent" :halign "center" :valign "center" :xalign 0.5 :yalign 0.5 :text ""))))
+
+(defwidget tn-osd []
+    (box :class "tn-osd ${osd_muted ? "tn-osd-muted" : "tn-osd-level"}" :orientation "h" :space-evenly false :spacing 14 :valign "center"
+        (label :class "tn-osd-icon ${osd_muted ? "tn-osd-icon-muted" : osd_kind == "brightness" ? "tn-osd-icon-brightness" : "tn-osd-icon-volume"}" :text {osd_muted ? "" : osd_kind == "brightness" ? "" : ""})
+        (box :class "tn-osd-meter" :visible {!osd_muted} :orientation "h" :space-evenly false :valign "center"
+            (progress :class "tn-osd-progress ${osd_kind == "brightness" ? "tn-osd-progress-brightness" : "tn-osd-progress-volume"}" :value osd_value :valign "center"))
+        (label :class "tn-osd-value" :text osd_label)))
+
+(defwidget bar []
+    (centerbox :class "tn-bar" :orientation "h"
+        (box :class "tn-cluster" :halign "start" :valign "center" :hexpand false :space-evenly false :spacing 10
+            (tn-workspaces)
+            (tn-window)
+            (tn-notifications))
+        (box :class "tn-cluster" :halign "center" :valign "center" :hexpand false :space-evenly false
+            (tn-clock))
+        (box :class "tn-cluster" :halign "end" :valign "center" :hexpand false :space-evenly false :spacing 10
+            (tn-tray)
+            (tn-sysinfo)
+            (tn-conn)
+            (tn-battery)
+            (tn-power))))
+
+(defwindow bar_widget
+    :monitor 0
+    :stacking "fg"
+    :focusable false
+    :exclusive true
+    :geometry (geometry :anchor "top center" :width "100%" :height "54px")
+    (bar))
+
+(defwindow osd
+    :monitor 0
+    :namespace "eww-osd"
+    :stacking "overlay"
+    :focusable false
+    :geometry (geometry :anchor "bottom center" :y "54px")
+    (tn-osd))

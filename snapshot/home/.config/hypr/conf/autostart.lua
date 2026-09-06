@@ -1,0 +1,10 @@
+hl.on("hyprland.start", function()
+    -- Status bar: eww (monasm-dots). To revert to quickshell, swap the two lines below.
+    hl.exec_cmd("sh -c 'uwsm app -- $HOME/.config/eww/launch.sh'")
+    -- hl.exec_cmd("uwsm app -- quickshell")
+    hl.exec_cmd("uwsm app -- mako")
+    hl.exec_cmd("uwsm app -- hyprpaper")
+    hl.exec_cmd("uwsm app -- hypridle")
+    hl.exec_cmd("uwsm app -- hyprsunset")
+    hl.exec_cmd("wl-paste --watch cliphist store")
+end)

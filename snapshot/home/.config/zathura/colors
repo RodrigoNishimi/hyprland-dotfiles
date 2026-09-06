@@ -1,0 +1,43 @@
+# ARQUIVO GERADO POR `theme set tokyonight` — NÃO EDITE.
+
+set default-bg              "#1a1b26"
+set default-fg              "#c0caf5"
+
+set statusbar-bg            "#16161e"
+set statusbar-fg            "#c0caf5"
+
+set inputbar-bg             "#16161e"
+set inputbar-fg             "#c0caf5"
+
+set notification-bg         "#16161e"
+set notification-fg         "#c0caf5"
+
+set notification-error-bg   "#16161e"
+set notification-error-fg   "#f7768e"
+
+set notification-warning-bg "#16161e"
+set notification-warning-fg "#e0af68"
+
+set highlight-color         "#7dcfff80"
+set highlight-active-color  "#7aa2f780"
+
+set completion-bg           "#16161e"
+set completion-fg           "#9aa5ce"
+
+set completion-highlight-bg "#292e42"
+set completion-highlight-fg "#c0caf5"
+
+set index-bg                "#1a1b26"
+set index-fg                "#c0caf5"
+set index-active-bg         "#292e42"
+set index-active-fg         "#c0caf5"
+
+set render-loading          true
+set render-loading-bg       "#1a1b26"
+set render-loading-fg       "#c0caf5"
+
+set recolor-lightcolor      "#1a1b26"
+set recolor-darkcolor       "#c0caf5"
+
+set recolor                 "false"
+set recolor-keephue         "false"

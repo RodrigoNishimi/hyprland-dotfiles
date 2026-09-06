@@ -1,0 +1,33 @@
+# ARQUIVO GERADO POR `theme set tokyonight` — NÃO EDITE.
+#
+# O lazygit não tem diretiva de include, então este arquivo não é lido sozinho:
+# o LG_CONFIG_FILE junta ele com o config.yml versionado (ver tmux-lazygit e
+# packages/zsh/.zshrc). O que está aqui é só cor; comportamento fica lá.
+gui:
+  theme:
+    activeBorderColor:
+      - "#7dcfff"
+      - bold
+    inactiveBorderColor:
+      - "#565f89"
+    searchingActiveBorderColor:
+      - "#e0af68"
+      - bold
+    optionsTextColor:
+      - "#7aa2f7"
+    selectedLineBgColor:
+      - "#292e42"
+    inactiveViewSelectedLineBgColor:
+      - "#16161e"
+    cherryPickedCommitFgColor:
+      - "#c0caf5"
+    cherryPickedCommitBgColor:
+      - "#bb9af7"
+    markedBaseCommitFgColor:
+      - "#c0caf5"
+    markedBaseCommitBgColor:
+      - "#e0af68"
+    unstagedChangesColor:
+      - "#f7768e"
+    defaultFgColor:
+      - "#c0caf5"

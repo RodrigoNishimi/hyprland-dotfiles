@@ -1,0 +1,201 @@
+// ==================================================================
+// GERADO por lua/build.lua a partir de lua/tokens.lua + lua/style.lua.
+// NÃO EDITE — rode `lua ~/.config/eww/lua/build.lua`.
+//
+// Paleta: tokyonight. Superfície: glass.
+// ==================================================================
+
+// Base da barra. Precisa vir antes das classes: mesma especificidade,
+// então quem chega depois ganha.
+.tn-bar, .tn-bar * {
+  font-family: "JetBrainsMono Nerd Font";
+  font-size: 12px;
+  font-weight: 400;
+  color: #9aa5ce;
+}
+
+.tn-bar {
+  background-color: transparent;
+  padding: 14px 14px 0px 14px;
+}
+
+.tn-cluster { background-color: transparent; }
+
+// ── Ilha ─────────────────────────────────────────────────────────
+.tn-island {
+  min-height: 38px;
+  padding: 0px 16px;
+  border-radius: 14px;
+  background-color: rgba(26,27,38,0.72);
+  border: 1px solid rgba(192,202,245,0.08);
+}
+
+.tn-island-square { min-width: 38px; padding: 0px; }
+.tn-island-ws     { padding: 0px 8px; }
+.tn-island-clock  { padding: 0px 22px; }
+.tn-island-tray   { padding: 0px 12px; }
+
+.tn-sep {
+  min-width: 1px;
+  min-height: 16px;
+  background-color: rgba(192,202,245,0.12);
+}
+
+// Eventbox é só área de clique: o GTK3 ignora min-width/min-height nele,
+// então quem desenha é sempre uma box por dentro.
+.tn-hit { background-color: transparent; }
+
+// ── Ícones ───────────────────────────────────────────────────────
+.tn-ico {
+  font-family: "Material Symbols Rounded";
+  font-size: 17px;
+  color: #9aa5ce;
+}
+.tn-ico-sm { font-size: 15px; }
+.tn-ico-lg { font-size: 18px; }
+.tn-ico-arch {
+  font-family: "JetBrainsMono Nerd Font";
+  font-size: 20px;
+  font-weight: 400;
+  margin: 0px;
+  padding: 0px 6px 0px 0px;
+}
+
+.tn-ico-accent { color: #7aa2f7; }
+.tn-ico-subtle { color: #9aa5ce; }
+.tn-ico-muted  { color: #565f89; }
+.tn-ico-cpu    { color: #7dcfff; }
+.tn-ico-ram    { color: #bb9af7; }
+.tn-ico-temp   { color: #ff9e64; }
+.tn-ico-ok     { color: #9ece6a; }
+.tn-ico-warn   { color: #e0af68; }
+.tn-ico-crit   { color: #f7768e; }
+
+// ── Workspaces ───────────────────────────────────────────────────
+// Os chips saem de scripts/workspace.sh; aqui só o desenho.
+.tn-ws { background-color: transparent; }
+
+.tn-ws-chip {
+  min-width: 24px;
+  min-height: 24px;
+  border-radius: 8px;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+.tn-ws-chip label { font-family: "JetBrainsMono Nerd Font"; font-size: 12px; }
+
+.tn-ws-free label     { color: #3b4261; }
+.tn-hit:hover .tn-ws-free { background-color: rgba(192,202,245,0.09); }
+.tn-ws-occupied       { background-color: rgba(192,202,245,0.09); }
+.tn-ws-occupied label { color: #9aa5ce; }
+
+.tn-ws-active {
+  min-width: 34px;
+  background-color: #7aa2f7;
+  box-shadow: 0px 0px 14px -1px rgba(122,162,247,0.55);
+}
+.tn-ws-active label { color: #1a1b26; font-weight: 600; }
+
+// ── Janela em foco ───────────────────────────────────────────────
+.tn-window-title {
+  font-family: "JetBrainsMono Nerd Font";
+  font-size: 13px;
+  color: #9aa5ce;
+}
+
+// ── Relógio ──────────────────────────────────────────────────────
+.tn-clock-time {
+  font-family: "JetBrainsMono Nerd Font";
+  font-size: 14px;
+  font-weight: 500;
+  color: #c0caf5;
+}
+.tn-clock-date {
+  font-family: "JetBrainsMono Nerd Font";
+  font-size: 12px;
+  color: #9aa5ce;
+}
+.tn-island-clock { transition: background-color 0.25s ease; }
+.tn-hit:hover .tn-island-clock { background-color: rgba(192,202,245,0.06); }
+
+.tn-stat { background-color: transparent; }
+.tn-stat-value {
+  font-family: "JetBrainsMono Nerd Font";
+  font-size: 12px;
+  color: #9aa5ce;
+  transition: color 0.25s ease;
+}
+.tn-hit:hover .tn-stat-value { color: #c0caf5; }
+.tn-hit:hover .tn-ico-subtle  { color: #c0caf5; }
+.tn-hit:hover .tn-ico-muted   { color: #9aa5ce; }
+
+
+// ── Bandeja ──────────────────────────────────────────────────────
+.tn-island-tray image { margin: 0px 4px; }
+
+.tn-tray-toggle { transition: background-color 0.25s ease; }
+.tn-hit:hover .tn-tray-toggle { background-color: rgba(192,202,245,0.06); }
+.tn-hit:hover .tn-tray-toggle label { color: #c0caf5; }
+
+.tn-island-notifications {
+  transition: background-color 0.25s ease;
+}
+.tn-notifications-icon-only {
+  min-width: 38px;
+  padding: 0px;
+}
+.tn-notifications-with-count { padding: 0px 12px; }
+.tn-hit:hover .tn-island-notifications { background-color: rgba(192,202,245,0.06); }
+.tn-notification-count {
+  font-family: "JetBrainsMono Nerd Font";
+  font-size: 12px;
+  font-weight: 600;
+  color: #7aa2f7;
+  margin-left: 7px;
+}
+
+// ── Tipografia display ───────────────────────────────────────────
+// O papel DISPLAY do kit (Chakra Petch 300) nos números grandes dos
+// painéis da barra. Só a fonte: tamanho, cor e posição continuam
+// vindo do eww.scss escrito à mão.
+.time-hm, .time-ss, .username, .bat-percent {
+  font-family: "Chakra Petch";
+  font-weight: 300;
+}
+
+// ── Energia / barra de usuário ───────────────────────────────────
+.tn-power { transition: background-color 0.25s ease; }
+.tn-hit:hover .tn-power { background-color: rgba(247,118,142,0.16); }
+
+// ── OSD ──────────────────────────────────────────────────────────
+.tn-osd {
+  min-height: 58px;
+  padding: 0px 22px;
+  border-radius: 30px;
+  background-color: rgba(26,27,38,0.94);
+  border: 1px solid rgba(192,202,245,0.08);
+}
+.tn-osd-level { min-width: 296px; }
+.tn-osd-muted { min-width: 72px; }
+.tn-osd-icon {
+  font-family: "Material Symbols Rounded";
+  font-size: 17px;
+}
+.tn-osd-icon-volume { color: #7aa2f7; }
+.tn-osd-icon-brightness { color: #e0af68; }
+.tn-osd-icon-muted { color: #f7768e; }
+.tn-osd-meter { min-width: 214px; }
+.tn-osd-progress trough {
+  min-width: 214px;
+  min-height: 6px;
+  border-radius: 999px;
+  background-color: rgba(192,202,245,0.1);
+}
+.tn-osd-progress progress { min-height: 6px; border-radius: 999px; }
+.tn-osd-progress-volume progress { background-color: #7aa2f7; }
+.tn-osd-progress-brightness progress { background-color: #e0af68; }
+.tn-osd-value {
+  min-width: 28px;
+  font-family: "JetBrainsMono Nerd Font";
+  font-size: 12px;
+  color: #c0caf5;
+}

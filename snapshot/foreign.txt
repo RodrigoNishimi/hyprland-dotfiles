@@ -1,0 +1,10 @@
+antigravity
+antigravity-ide
+eww
+eww-debug
+paru
+paru-debug
+rose-pine-cursor
+yay
+yay-debug
+zen-browser-bin

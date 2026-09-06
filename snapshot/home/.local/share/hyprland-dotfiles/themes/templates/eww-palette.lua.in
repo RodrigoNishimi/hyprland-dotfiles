@@ -1,0 +1,35 @@
+-- ARQUIVO GERADO POR `theme set {{theme}}` — NÃO EDITE.
+-- Paleta da barra de status. lua/tokens.lua lê daqui; lua/build.lua
+-- transforma em bar.yuck + bar.scss.
+return {
+    theme   = "{{theme}}",
+    variant = "{{variant}}",
+
+    base    = "{{base}}",
+    surface = "{{surface}}",
+    overlay = "{{overlay}}",
+    termBg  = "{{term_bg}}",
+
+    highlightLow  = "{{highlight_low}}",
+    highlightMed  = "{{highlight_med}}",
+    highlightHigh = "{{highlight_high}}",
+
+    muted  = "{{muted}}",
+    subtle = "{{subtle}}",
+    text   = "{{text}}",
+
+    red     = "{{red}}",
+    green   = "{{green}}",
+    yellow  = "{{yellow}}",
+    blue    = "{{blue}}",
+    magenta = "{{magenta}}",
+    cyan    = "{{cyan}}",
+    peach   = "{{bright_yellow}}",
+
+    accent    = "{{accent}}",
+    accentAlt = "{{accent_alt}}",
+    success   = "{{success}}",
+    warning   = "{{warning}}",
+    error     = "{{error}}",
+    info      = "{{info}}",
+}

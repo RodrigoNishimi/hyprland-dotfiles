@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ARQUIVO GERADO POR `theme set tokyonight` — NÃO EDITE.
+
+     O highlight do preview de código do yazi não sai do theme.toml: ele é feito
+     pelo syntect, que só entende o formato tmTheme do Sublime. O theme.toml
+     aponta para cá com `[mgr] syntect_theme`, que exige caminho absoluto.
+
+     As cores vêm dos papéis `syn_*` da paleta, e não das cores diretas, porque
+     um tema pode discordar do mapeamento padrão: o rose-pine-moon roda o
+     gruber-darker no nvim, que usa as mesmas tintas em papéis diferentes. Quem
+     não declara nada cai nos defaults do `theme`, derivados da paleta semântica
+     (accent, info, success, warning).
+
+     `invalid` e os `markup.inserted/deleted/changed` ficam de fora dos `syn_*`
+     de propósito: são diagnóstico, não sintaxe.
+-->
+<plist version="1.0">
+<dict>
+    <key>name</key>
+    <string>tokyonight</string>
+    <key>settings</key>
+    <array>
+
+        <dict>
+            <key>settings</key>
+            <dict>
+                <key>background</key><string>#1a1b26</string>
+                <key>foreground</key><string>#c0caf5</string>
+                <key>caret</key><string>#c0caf5</string>
+                <key>lineHighlight</key><string>#16161e</string>
+                <key>selection</key><string>#292e42</string>
+                <key>invisibles</key><string>#565f89</string>
+                <key>gutterForeground</key><string>#565f89</string>
+            </dict>
+        </dict>
+
+        <dict>
+            <key>name</key><string>Comentário</string>
+            <key>scope</key><string>comment, punctuation.definition.comment</string>
+            <key>settings</key>
+            <dict>
+                <key>foreground</key><string>#565f89</string>
+                <key>fontStyle</key><string>italic</string>
+            </dict>
+        </dict>
+
+        <dict>
+            <key>name</key><string>String</string>
+            <key>scope</key><string>string, string.quoted, string.template</string>
+            <key>settings</key>
+            <dict><key>foreground</key><string>#e0af68</string></dict>
+        </dict>
+
+        <dict>
+            <key>name</key><string>Escape dentro de string</string>
+            <key>scope</key><string>constant.character.escape, string.regexp</string>
+            <key>settings</key>
+            <dict><key>foreground</key><string>#bb9af7</string></dict>
+        </dict>
+
+        <dict>
+            <key>name</key><string>Número e constante</string>
+            <key>scope</key><string>constant.numeric, constant.language, constant.character</string>
+            <key>settings</key>
+            <dict><key>foreground</key><string>#7aa2f7</string></dict>
+        </dict>
+
+        <dict>
+            <key>name</key><string>Palavra-chave</string>
+            <key>scope</key><string>keyword, keyword.control, keyword.operator.word, storage, storage.type, storage.modifier</string>
+            <key>settings</key>
+            <dict>
+                <key>foreground</key><string>#bb9af7</string>
+                <key>fontStyle</key><string></string>
+            </dict>
+        </dict>
+
+        <dict>
+            <key>name</key><string>Operador</string>
+            <key>scope</key><string>keyword.operator, punctuation.separator, punctuation.terminator, punctuation.accessor, meta.brace</string>
+            <key>settings</key>
+            <dict>
+                <key>foreground</key><string>#9aa5ce</string>
+                <!-- Vazio para cancelar, e não para herdar: o syntect acumula o
+                     fontStyle das regras menos específicas, então sem isto o
+                     `keyword.operator` sairia com o negrito da regra `keyword`. -->
+                <key>fontStyle</key><string></string>
+            </dict>
+        </dict>
+
+        <dict>
+            <key>name</key><string>Tipo</string>
+            <key>scope</key><string>entity.name.type, entity.name.class, entity.name.struct, entity.name.enum, entity.name.namespace, support.type, support.class</string>
+            <key>settings</key>
+            <dict><key>foreground</key><string>#9ece6a</string></dict>
+        </dict>
+
+        <dict>
+            <key>name</key><string>Função</string>
+            <key>scope</key><string>entity.name.function, support.function, variable.function, meta.function-call</string>
+            <key>settings</key>
+            <dict><key>foreground</key><string>#2ac3de</string></dict>
+        </dict>
+
+        <dict>
+            <key>name</key><string>Variável</string>
+            <key>scope</key><string>variable, variable.other, support.variable, support.constant</string>
+            <key>settings</key>
+            <dict><key>foreground</key><string>#c0caf5</string></dict>
+        </dict>
+
+        <dict>
+            <key>name</key><string>Parâmetro</string>
+            <key>scope</key><string>variable.parameter</string>
+            <key>settings</key>
+            <dict>
+                <key>foreground</key><string>#9aa5ce</string>
+                <key>fontStyle</key><string>italic</string>
+            </dict>
+        </dict>
+
+        <dict>
+            <key>name</key><string>Tag</string>
+            <key>scope</key><string>entity.name.tag</string>
+            <key>settings</key>
+            <dict><key>foreground</key><string>#7aa2f7</string></dict>
+        </dict>
+
+        <dict>
+            <key>name</key><string>Atributo</string>
+            <key>scope</key><string>entity.other.attribute-name</string>
+            <key>settings</key>
+            <dict>
+                <key>foreground</key><string>#e0af68</string>
+                <key>fontStyle</key><string>italic</string>
+            </dict>
+        </dict>
+
+        <dict>
+            <key>name</key><string>Inválido</string>
+            <key>scope</key><string>invalid, invalid.illegal</string>
+            <key>settings</key>
+            <dict><key>foreground</key><string>#f7768e</string></dict>
+        </dict>
+
+        <dict>
+            <key>name</key><string>Depreciado</string>
+            <key>scope</key><string>invalid.deprecated</string>
+            <key>settings</key>
+            <dict>
+                <key>foreground</key><string>#e0af68</string>
+                <key>fontStyle</key><string>italic</string>
+            </dict>
+        </dict>
+
+        <dict>
+            <key>name</key><string>Título (markdown)</string>
+            <key>scope</key><string>markup.heading, entity.name.section</string>
+            <key>settings</key>
+            <dict>
+                <key>foreground</key><string>#bb9af7</string>
+                <key>fontStyle</key><string>bold</string>
+            </dict>
+        </dict>
+
+        <dict>
+            <key>name</key><string>Negrito (markdown)</string>
+            <key>scope</key><string>markup.bold</string>
+            <key>settings</key>
+            <dict><key>fontStyle</key><string>bold</string></dict>
+        </dict>
+
+        <dict>
+            <key>name</key><string>Itálico (markdown)</string>
+            <key>scope</key><string>markup.italic</string>
+            <key>settings</key>
+            <dict><key>fontStyle</key><string>italic</string></dict>
+        </dict>
+
+        <dict>
+            <key>name</key><string>Link (markdown)</string>
+            <key>scope</key><string>markup.underline.link</string>
+            <key>settings</key>
+            <dict>
+                <key>foreground</key><string>#2ac3de</string>
+                <key>fontStyle</key><string>underline</string>
+            </dict>
+        </dict>
+
+        <dict>
+            <key>name</key><string>Código literal (markdown)</string>
+            <key>scope</key><string>markup.raw, markup.inline.raw</string>
+            <key>settings</key>
+            <dict><key>foreground</key><string>#e0af68</string></dict>
+        </dict>
+
+        <dict>
+            <key>name</key><string>Diff adicionado</string>
+            <key>scope</key><string>markup.inserted</string>
+            <key>settings</key>
+            <dict><key>foreground</key><string>#9ece6a</string></dict>
+        </dict>
+
+        <dict>
+            <key>name</key><string>Diff removido</string>
+            <key>scope</key><string>markup.deleted</string>
+            <key>settings</key>
+            <dict><key>foreground</key><string>#f7768e</string></dict>
+        </dict>
+
+        <dict>
+            <key>name</key><string>Diff alterado</string>
+            <key>scope</key><string>markup.changed</string>
+            <key>settings</key>
+            <dict><key>foreground</key><string>#e0af68</string></dict>
+        </dict>
+
+    </array>
+</dict>
+</plist>

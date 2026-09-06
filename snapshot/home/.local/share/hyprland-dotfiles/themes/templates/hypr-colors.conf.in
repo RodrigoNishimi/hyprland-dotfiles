@@ -1,0 +1,33 @@
+# ARQUIVO GERADO POR `theme set {{theme}}` — NÃO EDITE.
+# Usado pelo hyprlock (que só entende a sintaxe nativa do Hyprland).
+
+$wallpaper = {{wallpaper_path}}
+
+$base    = {{base:rgb}}
+$surface = {{surface:rgb}}
+$overlay = {{overlay:rgb}}
+
+$muted  = {{muted:rgb}}
+$subtle = {{subtle:rgb}}
+$text   = {{text:rgb}}
+
+$red     = {{red:rgb}}
+$green   = {{green:rgb}}
+$yellow  = {{yellow:rgb}}
+$blue    = {{blue:rgb}}
+$magenta = {{magenta:rgb}}
+$cyan    = {{cyan:rgb}}
+
+$accent    = {{accent:rgb}}
+$accentAlt = {{accent_alt:rgb}}
+
+# Sombra para texto sobre o wallpaper, no tom do fundo do tema.
+$shadow = rgba({{base:hex}}b3)
+
+# Sem o rgb(), para interpolar dentro de markup pango.
+$baseAlpha      = {{base:hex}}
+$surfaceAlpha   = {{surface:hex}}
+$textAlpha      = {{text:hex}}
+$mutedAlpha     = {{muted:hex}}
+$accentAlpha    = {{accent:hex}}
+$accentAltAlpha = {{accent_alt:hex}}

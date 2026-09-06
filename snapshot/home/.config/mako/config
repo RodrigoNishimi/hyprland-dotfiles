@@ -1,0 +1,78 @@
+# ARQUIVO GERADO POR `theme set tokyonight` — NÃO EDITE.
+# Layout vindo do kit Tokyo Night; cores vindas da paleta do tema ativo.
+
+sort=-time
+layer=overlay
+anchor=top-right
+output=
+
+max-visible=4
+max-history=50
+group-by=app-name,summary
+
+font=JetBrainsMono Nerd Font 11
+width=408
+height=156
+padding=14,16,16,16
+margin=10,0
+border-size=1
+border-radius=16
+
+icons=1
+max-icon-size=32
+icon-location=left
+markup=1
+actions=1
+text-alignment=left
+
+background-color=#1a1b26f2
+text-color=#c0caf5
+border-color=#7aa2f773
+progress-color=over #7aa2f729
+
+format=<span foreground="#565f89" size="9000">%a</span>\n<span size="12000" weight="bold">%s</span>\n<span foreground="#9aa5ce" size="10500">%b</span>
+default-timeout=6000
+ignore-timeout=0
+
+# A barra do eww ocupa 52px no topo. Sem isto a pilha nasce por baixo dela.
+outer-margin=58,16,16,16
+
+[grouped]
+format=<span foreground="#565f89" size="9000">%a  ·  %g notificações</span>\n<span size="12000" weight="bold">%s</span>\n<span foreground="#9aa5ce" size="10500">%b</span>
+
+[urgency=low]
+border-color=#565f8952
+text-color=#9aa5ce
+default-timeout=4000
+
+[urgency=normal]
+border-color=#7aa2f773
+
+[urgency=critical]
+border-color=#f7768e
+background-color=#16161efa
+text-color=#f7768e
+progress-color=over #f7768e33
+default-timeout=0
+
+# OSD de volume / brilho (conf/scripts/osd.sh) — pílula central, sem ícone.
+[category=osd]
+anchor=bottom-center
+layer=overlay
+width=300
+height=64
+margin=0,0,120,0
+padding=16,20
+border-radius=32
+border-size=1
+border-color=#c0caf517
+background-color=#1a1b26e6
+font=JetBrainsMono Nerd Font 13
+icons=0
+format=%s
+default-timeout=1200
+history=0
+
+# Ativado pelo Super + N (conf/keybinds.lua). invisible=1 é o que de fato silencia.
+[mode=do-not-disturb]
+invisible=1

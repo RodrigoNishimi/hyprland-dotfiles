@@ -1,0 +1,169 @@
+local M = require("conf.programs")
+
+local mainMod = "SUPER"
+
+hl.bind(mainMod .. "+ Q", hl.dsp.exec_cmd("uwsm app -- " .. M.terminal))
+hl.bind(mainMod .. "+ SHIFT + Q", hl.dsp.exec_cmd("uwsm app -- zen-browser"))
+hl.bind(mainMod .. "+ C", hl.dsp.window.close())
+hl.bind(mainMod .. "+ M", hl.dsp.exec_cmd("uwsm stop"))
+-- Mesmo comando que o hypridle usa no timeout e antes do suspend.
+hl.bind(mainMod .. "+ ESCAPE", hl.dsp.exec_cmd("loginctl lock-session"))
+local FLOAT_RATIO = 0.6
+
+-- O Hyprland guarda o último tamanho flutuante de cada janela, então só o primeiro
+-- float precisa de tamanho: ele herdaria a área do tile, que é a tela inteira.
+local floatedOnce = {}
+
+hl.bind(mainMod .. "+ V", function()
+    local w = hl.get_active_window()
+    if not w then
+        return
+    end
+
+    -- Lido antes do dispatch: depois do toggle o resize é animado.
+    local first = not w.floating and not floatedOnce[w.address]
+    hl.dispatch(hl.dsp.window.float({ action = "toggle" }))
+    if not first then
+        return
+    end
+
+    floatedOnce[w.address] = true
+
+    local m = w.monitor
+    local scale = (m and m.scale) or 1
+    hl.dispatch(hl.dsp.window.resize({
+        x = math.floor(m.width / scale * FLOAT_RATIO),
+        y = math.floor(m.height / scale * FLOAT_RATIO),
+    }))
+    hl.dispatch(hl.dsp.window.center())
+end)
+hl.bind(mainMod .. "+ R", hl.dsp.exec_cmd("uwsm app -- rofi-script"))
+hl.bind(mainMod .. "+ A", hl.dsp.exec_cmd("uwsm app -- rofi-script apps"))
+-- Mesma classe do control center e do rofi, para cair na regra do rules.lua.
+hl.bind(mainMod .. "+ SHIFT + A",
+    hl.dsp.exec_cmd("uwsm app -- ghostty --class=com.example.wiremix --command=wiremix"))
+hl.bind(mainMod .. "+ SHIFT + E", hl.dsp.exec_cmd("qs ipc call bar cycle"))
+hl.bind(mainMod .. "+ N", hl.dsp.exec_cmd("makoctl mode -t do-not-disturb"))
+-- Na mão esquerda: o control center se usa com o mouse.
+hl.bind(mainMod .. "+ D", hl.dsp.exec_cmd("$HOME/.config/eww/scripts/usrctl.sh"))
+hl.bind(mainMod .. "+ PERIOD", hl.dsp.exec_cmd("uwsm app -- rofimoji --action copy"))
+hl.bind(mainMod .. "+ P", hl.dsp.window.pseudo())
+hl.bind(mainMod .. "+ T", hl.dsp.layout("togglesplit"))
+-- Volume e brilho passam pelo OSD do Eww: ele roda o mesmo wpctl de antes
+-- (o -l 1.0 trava o teto em 100%, senão o wpctl passa de 1.0 e distorce) e
+-- ainda manda o OSD para o mako. O caminho antigo do brilho ia pelo quickshell,
+-- que saiu do ar quando a barra virou eww — ficava mudo.
+local osd = "$HOME/.config/eww/scripts/osd.sh"
+
+hl.bind("XF86AudioMute", hl.dsp.exec_cmd(osd .. " volume mute"), { locked = true })
+hl.bind("XF86AudioMicMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"), { locked = true })
+hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd(osd .. " volume up"),
+    { locked = true, repeating = true })
+hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd(osd .. " volume down"),
+    { locked = true, repeating = true })
+hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd(osd .. " brightness down"),
+    { locked = true, repeating = true })
+hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd(osd .. " brightness up"),
+    { locked = true, repeating = true })
+hl.bind(mainMod .. "+ F", hl.dsp.window.fullscreen())
+hl.bind(mainMod .. "+ SHIFT + B", hl.dsp.exec_cmd("killall -SIGUSR1 waybar"))
+
+hl.bind(mainMod .. "+ Y", hl.dsp.exec_cmd("uwsm app -- rofi-script clipboard"))
+
+hl.bind("PRINT", hl.dsp.exec_cmd("uwsm app -- rofi-script --screenshot region"), { locked = true })
+hl.bind(mainMod .. "+ E", hl.dsp.exec_cmd("uwsm app -- rofi-script --screenshot fullscreen"), { locked = true })
+
+hl.bind(mainMod .. " + SHIFT + W", hl.dsp.group.toggle())
+hl.bind(mainMod .. "+ W", hl.dsp.group.next())
+
+hl.bind(mainMod .. "+ O", hl.dsp.window.move({ into_or_create_group = "l" }))
+
+hl.bind(mainMod .. " + SHIFT + I", hl.dsp.exec_cmd("window-info"))
+
+local minimized = false
+hl.bind(mainMod .. "+ X", function()
+    if minimized then
+        hl.dispatch(hl.dsp.workspace.toggle_special("minimize"))
+        hl.dispatch(hl.dsp.window.move({ workspace = "+0" }))
+        minimized = false
+    else
+        hl.dispatch(hl.dsp.window.move({ workspace = "special:minimize" }))
+        hl.dispatch(hl.dsp.workspace.toggle_special("minimize"))
+        minimized = true
+    end
+end)
+
+local MAX_ZOOM = 3
+local MIN_ZOOM = 1
+local ZOOM_TOGGLE_FACTOR = 1.5
+
+---@param offset number
+---@return nil
+local function zoom(offset)
+    local current = hl.get_config("cursor.zoom_factor")
+    if offset ~= nil then
+        current = current + offset
+    elseif current ~= MIN_ZOOM then
+        current = MIN_ZOOM
+    else
+        current = ZOOM_TOGGLE_FACTOR
+    end
+    current = math.max(MIN_ZOOM, math.min(MAX_ZOOM, current))
+    hl.config({ cursor = { zoom_factor = current } })
+end
+
+hl.bind(mainMod .. "+ Z", zoom)
+hl.bind(mainMod .. "+ SHIFT + EQUAL", function()
+    zoom(0.5)
+end)
+hl.bind(mainMod .. "+ MINUS", function()
+    zoom(-0.5)
+end)
+
+hl.bind(mainMod .. "+ H", hl.dsp.focus({ direction = "l" }))
+hl.bind(mainMod .. "+ L", hl.dsp.focus({ direction = "r" }))
+hl.bind(mainMod .. "+ K", hl.dsp.focus({ direction = "u" }))
+hl.bind(mainMod .. "+ J", hl.dsp.focus({ direction = "d" }))
+
+hl.bind(mainMod .. "+ SHIFT + H", hl.dsp.window.move({ direction = "l" }))
+hl.bind(mainMod .. "+ SHIFT + L", hl.dsp.window.move({ direction = "r" }))
+hl.bind(mainMod .. "+ SHIFT + K", hl.dsp.window.move({ direction = "u" }))
+hl.bind(mainMod .. "+ SHIFT + J", hl.dsp.window.move({ direction = "d" }))
+
+for i = 1, 10 do
+    local key = i % 10 -- 10 maps to key 0
+    hl.bind(mainMod .. " + " .. key, hl.dsp.focus({ workspace = i }))
+    hl.bind(mainMod .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = i }))
+end
+
+hl.bind(mainMod .. " + S", hl.dsp.workspace.toggle_special("magic"))
+hl.bind(mainMod .. " + SHIFT + S", hl.dsp.window.move({ workspace = "special:magic" }))
+
+hl.bind(mainMod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
+hl.bind(mainMod .. " + mouse_up", hl.dsp.focus({ workspace = "e-1" }))
+
+hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })
+hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
+
+hl.bind("ALT + R", hl.dsp.submap("resize"))
+
+hl.define_submap("resize", function()
+    hl.bind("H", hl.dsp.window.resize({ x = -10, y = 0, relative = true }), { repeating = true })
+    hl.bind("L", hl.dsp.window.resize({ x = 10, y = 0, relative = true }), { repeating = true })
+    hl.bind("K", hl.dsp.window.resize({ x = 0, y = -10, relative = true }), { repeating = true })
+    hl.bind("J", hl.dsp.window.resize({ x = 0, y = 10, relative = true }), { repeating = true })
+
+    hl.bind("SHIFT + H", hl.dsp.window.resize({ x = -30, y = 0, relative = true }), { repeating = true })
+    hl.bind("SHIFT + L", hl.dsp.window.resize({ x = 30, y = 0, relative = true }), { repeating = true })
+    hl.bind("SHIFT + K", hl.dsp.window.resize({ x = 0, y = -30, relative = true }), { repeating = true })
+    hl.bind("SHIFT + J", hl.dsp.window.resize({ x = 0, y = 30, relative = true }), { repeating = true })
+
+    -- "reset" é o nome reservado que devolve ao submapa global.
+    hl.bind("escape", hl.dsp.submap("reset"))
+end)
+
+-- Seletor de tema (também em rofi-script > Setup > Tema).
+hl.bind(mainMod .. "+ SHIFT + T", hl.dsp.exec_cmd("uwsm app -- theme pick"))
+
+-- Catálogo de atalhos do ambiente.
+hl.bind(mainMod .. "+ F1", hl.dsp.exec_cmd("$HOME/.config/eww/scripts/keybinds.py"))

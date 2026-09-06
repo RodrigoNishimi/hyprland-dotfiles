@@ -1,0 +1,30 @@
+# Mapa de templates -> arquivos gerados.
+#
+#   <template em themes/templates/>   <destino>   [perfis]
+#
+# Tudo que aparece na coluna do meio é REGERADO a cada `theme set` e nunca
+# entra no repositório: são arquivos reais, criados ao lado dos symlinks do
+# stow (por isso o stow roda sempre com --no-folding).
+#
+# A terceira coluna é opcional: lista, separada por vírgula, dos perfis em que
+# a linha vale. Vazia significa todos. É o que impede o `theme set` de escrever
+# config de Hyprland numa máquina que não tem desktop.
+
+hypr-colors.lua.in        ~/.config/hypr/conf/colors.lua              desktop
+hypr-colors.conf.in       ~/.config/hypr/conf/colors.conf             desktop
+hyprpaper.conf.in         ~/.config/hypr/hyprpaper.conf               desktop
+waybar-colors.css.in      ~/.config/waybar/colors.css                 desktop
+rofi-colors.rasi.in       ~/.config/rofi/themes/colors.rasi           desktop
+mako.config.in            ~/.config/mako/config                       desktop
+quickshell-Theme.qml.in   ~/.config/quickshell/modules/Theme.qml      desktop
+eww-palette.lua.in        ~/.config/eww/lua/palette.lua               desktop
+alacritty-colors.toml.in  ~/.config/alacritty/colors.toml             desktop
+ghostty-colors.in         ~/.config/ghostty/colors                    desktop
+zathura-colors.in         ~/.config/zathura/colors                    desktop
+starship.toml.in          ~/.config/starship.toml
+tmux-colors.conf.in       ~/.config/tmux/colors.conf
+nvim-theme.lua.in         ~/.config/nvim/lua/theme.lua
+btop.theme.in             ~/.config/btop/themes/dotfiles.theme
+lazygit-colors.yml.in     ~/.config/lazygit/colors.yml
+yazi-theme.toml.in        ~/.config/yazi/theme.toml
+yazi-syntax.tmTheme.in    ~/.config/yazi/theme.tmTheme

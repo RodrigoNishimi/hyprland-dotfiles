@@ -1,0 +1,27 @@
+# Perfil desktop: a máquina de referência (Arch + Hyprland).
+#
+# Um pacote do stow por linha, na grafia do `dots list`. É o que o `dots link`
+# usa quando nenhum nome e nenhum --except são passados.
+
+alacritty
+bash
+bin
+btop
+fastfetch
+ghostty
+git
+gtk
+hypr
+lazygit
+nvim
+nvim-plugins
+qt
+quickshell
+rofi
+tmux
+uwsm
+waybar
+xsettingsd
+yazi
+zathura
+zsh

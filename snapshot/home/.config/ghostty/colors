@@ -1,0 +1,30 @@
+# ARQUIVO GERADO POR `theme set tokyonight` — NÃO EDITE.
+
+# O ghostty usa o fundo normal do tema. Quem quiser um fundo diferente do
+# resto do desktop (o alacritty usa preto puro com transparência) usa term_bg.
+background = #1a1b26
+background-opacity = 0.92
+foreground = #c0caf5
+
+cursor-color = #c0caf5
+cursor-text = #1a1b26
+
+selection-background = #292e42
+selection-foreground = #c0caf5
+
+palette = 0=#3b4261
+palette = 1=#f7768e
+palette = 2=#9ece6a
+palette = 3=#e0af68
+palette = 4=#7aa2f7
+palette = 5=#bb9af7
+palette = 6=#7dcfff
+palette = 7=#c0caf5
+palette = 8=#565f89
+palette = 9=#ff7a93
+palette = 10=#b9f27c
+palette = 11=#ff9e64
+palette = 12=#7da6ff
+palette = 13=#bb9af7
+palette = 14=#0db9d7
+palette = 15=#c0caf5

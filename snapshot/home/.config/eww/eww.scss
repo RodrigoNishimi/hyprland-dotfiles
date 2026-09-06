@@ -1,0 +1,969 @@
+*{
+  all: unset;
+  font-family:"Hack Nerd Font";
+}
+
+.bar{
+  box-shadow: 0 2px 3px 1px rgba(6,6,11,0.9);
+  border-radius: 10px;
+  background-color: rgba(24,24,37,0.94);
+  padding: 5px;
+  margin:6.5px;
+}
+
+.menu{
+  margin-left:12px;
+}
+
+.menu-eventbox{
+  color:#1793d1;
+  transition: color 0.3s;
+  &:hover{
+    color:#cdd6f4;
+  }
+}
+
+.power{
+  margin-right:10px;
+}
+
+.power-eventbox{
+  color:#1793d1;
+  font-weight:bold;
+  font-size:20px;
+  font-family: "Hack Nerd Font";
+  transition: color 0.3s;
+  &:hover{
+    color:#cdd6f4;
+  }
+}
+
+.ws{
+  font-family: "Hack Nerd Font";
+  font-size: 16px;
+  color: #cdd6f4;
+}
+
+.div{
+  font-size:25px;
+  font-weight:100;
+  color:rgba(205,212,246,0.3);
+}
+
+.free{
+  opacity:0.2;
+  transition: opacity 0.3s;
+  &:hover{
+    opacity:1;
+  }
+}
+
+.time-label{
+  background-color:rgba(0,0,0,0.38);
+  color:rgb(78,200,200);
+  border-radius:20px;
+  transition: color 0.3s;
+  transition: background-color 0.3s;
+  &:hover{
+    color:rgb(255,255,255);
+    background-color:rgb(78,200,200);
+  }
+}
+
+.keyboard,.battery,.volume-short, .ram-short, .temp-short, .cpu-short{
+  background-color:rgba(0,0,0,0.38);
+  padding:0px 13px;
+  border-radius:20px;
+  font-size:11px;
+  margin:3px 0px;
+}
+
+.volume-short{
+
+}
+
+.ram-short{
+  color: #4D9FEC;
+}
+
+.temp-short{
+  color: #F38BA8;
+}
+
+.cpu-short{
+  color: #FF6B6B;
+}
+
+.keyboard{
+  color:rgb(245,162,96);
+}
+
+.kb-div,.wifi-div{
+  margin:0px 3px;
+}
+
+.kb-type,.wifi-type{
+  color:rgb(205,212,246);
+}
+
+.tray-button{
+  font-size:20px;
+  font-family:"Hack Nerd Font";
+  color: #cdd6f4;
+  border-radius:10px;
+  transition: background-color 0.6s;
+  &:hover{
+    background-color:rgba(0,0,0,0.38);
+  }
+}
+
+.systray-shadow{
+  background-color:rgba(0,0,0,0.38);
+  margin-right:5px;
+  margin-top:3px;
+  margin-bottom:3px;
+  padding:0px 8px;
+  border-radius:20px;
+}
+
+image{
+  margin: 0px 3px;
+}
+
+menu {
+  border-radius:15px;
+  padding: 10px;
+  background-color: red;
+  color:#cdd6f4;
+  background-color: rgba(0,0,0,0.68);
+  menuitem {
+    border-radius: 10px;
+    padding: 8px 12px;
+  }
+  menuitem:hover {
+    background-color: rgba(70,70,220,0.85);
+  }
+}
+
+.tray-text{
+  margin-bottom:4px;
+}
+
+.wifi{
+  background-color:rgba(0,0,0,0.38);
+  padding-left: 13px;
+  padding-right: 13px;
+  color:rgb(245,162,96);
+  border-radius:20px;
+  font-size:11px;
+  margin:3px 0px;
+}
+
+.space-wifi{
+  font-size:4px;
+}
+
+.wifictl-container, .menuctl-container{
+  margin:5.5px;
+  border-radius: 20px;
+  min-width:385px;
+  background-color: rgba(24,24,37,0.92);
+  padding: 5px;
+}
+
+.menuctl-container{
+  box-shadow: 0 2px 3px 2px #06060b;
+}
+
+.wifi-header, .menu-header{
+  font-size:25px;
+  margin-left:15px;
+  margin-top:10px;
+  margin-bottom:7px;
+  color:rgb(48,100,170);
+}
+
+.wifi-stats, .menu-subheader{
+  color: #cdd6f4;
+  margin-left:15px;
+}
+
+.nocon{
+  color:#E74C3C;
+}
+
+.yescon{
+  color: #2ECC71;
+}
+
+.network-container, .app-container{
+  min-height:15rem;
+  margin:7px;
+  margin-top:17px;
+  border-radius:15px;
+  box-shadow: 0 2px 3px 2px rgba(6,6,11,0.9);
+  background-color:rgba(0,0,0,0.28);
+}
+
+.app-container{
+  min-height:25rem;
+}
+
+.wifi-option-box, .app-option-box{
+  font-size:16px;
+  margin:5px 5px;
+  border-radius:15px;
+  padding:10px;
+  background-color:rgba(65,72,86,0.3);
+  box-shadow: 0 2px 3px 2px rgba(6,6,11,0.9);
+}
+
+.wifi-ssid{
+  margin:2px 15px;
+}
+
+.app-display{
+  margin:2px 2px;
+}
+
+.app-name{
+  margin-left:15px;
+}
+
+.wifi-ssid-01{
+  color: #cdd6f4;
+}
+
+.wifi-ssid-02{
+  color: #4D9FEC;
+}
+
+.wifi-ssid-03{
+  color: #2ECC71;
+}
+
+.wifi-buttons{
+  color: #cdd6f4;
+  border-radius:10px;
+  background-color: rgba(0,0,0,0.52);
+}
+
+.wifi-bcon{
+  margin:10px;
+}
+
+.iwifi{
+  margin-top:2px;
+  margin-left:10px;
+}
+
+.swifi-header{
+  font-size:15px;
+  margin-left:15px;
+  margin-top:10px;
+  margin-bottom:7px;
+  color: #cdd6f4;
+}
+
+.calendar-window{
+  background-color:transparent;
+}
+
+.calendar-container{
+  font-family:"JetBrainsMono Nerd Font";
+  border: 1px solid rgba(192,202,245,0.10);
+  margin:5.5px;
+  margin-bottom:12px;
+  border-radius: 22px;
+  background-color: rgba(26,27,38,0.96);
+  padding: 12px;
+}
+
+.clock-card{
+  border: 1px solid rgba(122,162,247,0.10);
+  border-radius:16px;
+  padding:20px 18px 18px 18px;
+  background-color:rgba(22,22,34,0.94);
+}
+
+.time-digit,
+.time-colon{
+  font-family:"Chakra Petch";
+  color:#c0caf5;
+  font-size:64px;
+  font-weight:300;
+}
+
+.time-colon{
+  color:#7aa2f7;
+  margin:0 4px;
+}
+
+.clock-meta{
+  margin-top:7px;
+}
+
+.date-inner{
+  color:#9aa5ce;
+  font-size:12px;
+  letter-spacing:0.5px;
+}
+
+.cal-card{
+  border: 1px solid rgba(192,202,245,0.07);
+  border-radius:16px;
+  margin-top:10px;
+  padding:9px 12px 11px 12px;
+  background-color:rgba(22,22,30,0.72);
+}
+
+.cal-head{
+  padding:2px 2px 6px 2px;
+}
+
+.cal-title{
+  color:#c0caf5;
+  font-size:16px;
+  font-weight:600;
+  border-radius:10px;
+  padding:3px 8px;
+  transition: background-color 0.25s, color 0.25s;
+  &:hover{
+    color:#7aa2f7;
+    background-color:rgba(122,162,247,0.10);
+  }
+}
+
+.cal-nav{
+  color:#565f89;
+  font-size:23px;
+  padding:0px 9px;
+  border-radius:10px;
+  transition: background-color 0.25s, color 0.25s;
+  &:hover{
+    color:#c0caf5;
+    background-color:rgba(192,202,245,0.09);
+  }
+}
+
+.cal-days{
+  color:#565f89;
+  font-size:11px;
+  font-weight:600;
+  padding:0px 6px 6px 6px;
+  margin-bottom:4px;
+  border-bottom:1px solid rgba(205,212,246,0.07);
+}
+
+.cal{
+  padding:2px;
+  font-size:14px;
+  color:#c0caf5;
+  &:indeterminate{
+    color:rgba(86,95,137,0.45);
+  }
+  &.cal-hoje:selected{
+    color:#16161e;
+    font-weight:bold;
+    background-color:#7aa2f7;
+    border-radius:9px;
+  }
+  &.cal-outro:selected{
+    color:rgb(205,212,246);
+    background-color:transparent;
+  }
+  &.highlight{
+    color:rgb(245,162,96);
+  }
+}
+
+.cal-foot{
+  margin-top:11px;
+  margin-bottom:2px;
+}
+
+.cal-foot-ico{
+  color:rgba(77,159,236,0.75);
+  font-size:13px;
+  margin-right:7px;
+}
+
+.cal-foot-txt{
+  color:rgba(205,212,246,0.40);
+  font-size:12px;
+}
+
+.main-container{
+  margin:5.5px;
+  border-radius: 20px;
+  min-width:385px;
+  background-color: rgba(24,24,37,0.92);
+  padding: 5px;
+}
+
+.profile{
+  min-width:370px;
+  margin:0px 7px;
+  margin-top:5px;
+  padding:10px;
+  border-radius:15px;
+  box-shadow: 0 2px 3px 2px rgba(6,6,11,0.9);
+  background-color:rgba(0,0,0,0.28);
+}
+
+.pfp{
+  box-shadow: 0 2px 3px 2px rgba(6,6,11,0.9);
+  background-image: url('./pfp.jpg');
+  background-size: 90px;
+  background-position: 50% 35%;
+  background-repeat:no-repeat;
+  min-height: 90px;
+  min-width: 90px;
+  border-radius: 100%;
+  margin-right:20px;
+}
+
+.username{
+  font-size:30px;
+  color:rgb(48,100,170);
+}
+
+.uptime{
+  color:rgb(205,212,246);
+}
+
+
+
+
+.ctlpanel{
+  min-width:230px;
+  margin-top:10px;
+  border-radius:20px;
+  padding:5px;
+  background-color:rgba(65,72,86,0.3);
+  font-family: "Hack Nerd Font";
+  box-shadow: 0 2px 3px 2px rgba(6,6,11,0.9);
+}
+
+.shutdown{
+  color:#e06c75;
+  transition:color 0.3s;
+  &:hover{
+    color:#f38b91;
+  }
+}
+
+.logout{
+  color:#d19a66;
+  transition:color 0.3s;
+  &:hover{
+    color:#e5b07b;
+  }
+}
+
+.lockscr{
+  color:#61afef;
+  transition:color 0.3s;
+  &:hover{
+    color:#79c0ff;
+  }
+}
+
+.reboot{
+  color:#c678dd;
+  transition: color 0.3s;
+  &:hover{
+    color:#d896f0;
+  }
+}
+
+.suspend{
+  color:#56b6c2;
+  transition:color 0.3s;
+  &:hover{
+    color:#6edddf;
+  }
+}
+
+.hibernate {
+  color: #5fb3b3;
+  transition: color 0.3s;
+  &:hover {
+    color: #a1e3e3;
+  }
+}
+
+tooltip{
+  padding:10px;
+  border-radius:20px;
+  background-color: rgba(24,24,37,0.75);
+}
+
+.sysctl{
+  margin:0px 7px;
+  margin-top:17px;
+  padding:10px;
+  box-shadow: 0 2px 3px 2px rgba(6,6,11,0.9);
+  background-color:rgba(0,0,0,0.28);
+  min-width:370px;
+  border-radius:15px;
+}
+
+.BAT1, .BAT2, .BAT3{
+  color: #2ECC71;
+}
+
+.BAT4, .BAT5{
+  color:#E74C3C;
+}
+
+.CHARGING{
+  color: #F1C40F;
+}
+
+.batico-main{
+  margin-left:10px;
+  margin-right:15px;
+  font-size:50px;
+}
+
+.batico-short{
+  margin-right:6px;
+  margin-top:6px;
+}
+
+.volico{
+  color:rgb(144, 104, 220);
+  margin-left:3px;
+}
+
+.bsht{
+  color: #cdd6f4;
+}
+
+.bat-percent{
+  font-size:20px;
+  color:rgb(205,212,246);
+}
+
+.bat-status{
+  color:rgba(255,255,255,0.5)
+}
+
+.bat-btn{
+  font-size:13px;
+}
+
+.divider-h{
+  min-height:3px;
+  margin:15px 5px;
+  background-color:rgb(0,0,0);
+}
+
+.ctlrow{
+  margin-top:15px;
+}
+
+.ctl-box, .temp-box{
+  margin:0px 10px;
+  border-radius:15px;
+  box-shadow: 0 2px 3px 2px rgba(6,6,11,0.9);
+  background-color:rgba(45,52,66,0.3);
+}
+
+.ctl-hover{
+  border-radius:15px;
+  transition: background-color 0.3s;
+  &:hover{
+    background-color:rgba(75,84,102,0.5);
+  }
+}
+
+.ctlico{
+  font-family: "Hack Nerd Font";
+  font-size:26px;
+  margin:17px 21px 16px 21px;
+}
+
+.ctl-text, .temp-text{
+  margin-bottom:10px;
+  margin-top:3.2px;
+}
+
+.ctl01, .ctl02, .temp01, .temp02{
+  font-size:14px;
+}
+
+.ctl02, .temp02{
+  color: rgb(205,212,246);
+}
+
+.pp-performance{ color:#FF6B6B; }
+.pp-balanced{ color:#4D9FEC; }
+.pp-powersaver{ color:#43E97B; }
+.pp-off{ color:#7f849c; }
+
+.bt-on, .bt-conn{ color:#5B8CFF; }
+.bt-off{ color:#7f849c; }
+.wifi-on{ color:#5B8CFF; }
+.wifi-off{ color:#7f849c; }
+.notifications-container{
+  margin:5.5px;
+  padding:12px;
+  border-radius:15px;
+  background-color:rgba(45,52,66,0.3);
+}
+
+.notifications-header{ margin-bottom:10px; }
+.notifications-title{ color:rgb(205,212,246); font-size:16px; }
+.notification-actions{ margin-left:12px; }
+.notification-action{
+  color:#5B8CFF;
+  font-size:18px;
+  padding:3px 7px;
+  border-radius:9px;
+  transition:background-color 0.3s, color 0.3s;
+  &:hover{ color:#8fb0ff; background-color:rgba(75,84,102,0.5); }
+}
+.notification-dnd-active{
+  color:#BB9AF7;
+  background-color:rgba(187,154,247,0.12);
+}
+.notification-dnd label{
+  font-family:"Hack Nerd Font";
+  font-size:15px;
+  min-width:18px;
+  padding:1px 0px;
+}
+.notification-clear{ color:#E06C75; }
+.notifications-empty{ color:#7f849c; font-size:13px; padding:18px 4px; }
+.notifications-scroll{ min-height:210px; }
+.notification-card{
+  margin:0px 3px 8px 3px;
+  padding:9px 11px;
+  border-left:3px solid #5B8CFF;
+  border-radius:10px;
+  background-color:rgba(0,0,0,0.24);
+}
+.notification-low{ border-left-color:#7f849c; }
+.notification-critical{ border-left-color:#E74C3C; }
+.notification-app{ color:#7f849c; font-size:11px; }
+.notification-summary{ color:rgb(205,212,246); font-size:14px; font-weight:bold; }
+.notification-body{ color:rgba(205,212,246,0.68); font-size:12px; }
+
+.temp{
+  border-radius:100px;
+  margin-top:20px;
+  background-color:rgb(0,0,0);
+  color:#FFA657;
+}
+
+.temp01{ color:#FFA657; }
+
+.tempico{
+  margin:15px 15px 15px 20px;
+  font-size:20px;
+  color:#FFA657;
+}
+
+.btctl-container{
+  margin:15px 10px 0px 10px;
+  padding:12px;
+  border-radius:15px;
+  background-color:rgba(0,0,0,0.28);
+  box-shadow: 0 2px 3px 2px rgba(6,6,11,0.9);
+}
+
+.btctl-header{
+  color:rgb(205,212,246);
+  font-size:15px;
+  margin-bottom:8px;
+}
+
+.bt-scan{
+  color:#5B8CFF;
+  font-family: "Hack Nerd Font";
+  transition:color 0.3s;
+  &:hover{
+    color:#8fb0ff;
+  }
+}
+
+.btctl-empty{
+  color:#7f849c;
+  font-size:13px;
+  margin:4px 0px;
+}
+
+.bt-device-row{
+  padding:6px 4px;
+  border-radius:10px;
+  transition: background-color 0.3s;
+  &:hover{
+    background-color:rgba(75,84,102,0.5);
+  }
+}
+
+.bt-device-ico{
+  font-family: "Hack Nerd Font";
+  margin-right:10px;
+}
+
+.bt-device-on{ color:#5B8CFF; }
+.bt-device-off{ color:rgb(205,212,246); }
+
+.sys{
+  margin:0px 10px;
+}
+
+.cpu-box, .ram-box, .disk-box{
+  margin:0px 10px;
+  border-radius:15px;
+  box-shadow: 0 2px 3px 2px rgba(6,6,11,0.9);
+  background-color:rgba(45,52,66,0.3);
+}
+
+.cpu, .ram, .disk{
+  border-radius:100px;
+  margin-top:20px;
+}
+.cpu, .cpu01{ color: #FF6B6B;}
+.ram, .ram01{ color: #4D9FEC; }
+.disk, .disk01{ color: #43E97B; }
+.cpu02, .ram02, .disk02{ color: rgb(205,212,246); }
+
+.ramico, .diskico, .cpuico{
+  margin-right: 15px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  font-size:20px;
+}
+
+.cpuico{
+  margin-left:20px;
+}
+
+.ramico, .diskico{
+  margin-left:25px;
+}
+
+.cpu, .ram, .disk{
+  background-color:rgb(0,0,0);
+}
+
+.cpu-text, .ram-text, .disk-text{
+  margin-bottom:10px;
+}
+
+.ram-text, .disk-text{
+  margin-top:3.2px;
+}
+
+.sliderctl{
+  border-radius:15px;
+  box-shadow: 0 2px 3px 2px rgba(6,6,11,0.9);
+  background-color:rgba(45,52,66,0.3);
+  margin-left:20px;
+  margin-right:20px;
+  margin-top:20px;
+  margin-bottom:10px;
+}
+
+.monitor-container{
+  margin-bottom:6px;
+}
+
+.volume-slider{
+  margin-top:10px;
+  margin-left:13px;
+}
+
+.light-slider{
+  margin-bottom:10px;
+  margin-left:13px;
+}
+
+.vol trough {
+  all: unset;
+  background-color: rgba(0,0,0,0.3);
+  box-shadow: 0 2px 3px 2px rgba(6,6,11,0.3);
+  border-radius: 50px;
+  min-height: 10px;
+  min-width: 250px;
+  margin: 0 20px 0 20px;
+}
+
+.vol trough highlight {
+  all: unset;
+  background-color:rgb(144, 104, 190);
+  border-radius: 10px;
+}
+
+.volume-slider,.volume-short{
+  color:rgb(144, 104, 190);
+}
+
+.lig trough {
+  all: unset;
+  background-color: rgba(0,0,0,0.3);
+  box-shadow: 0 2px 3px 2px rgba(6,6,11,0.3);
+  border-radius: 50px;
+  min-height: 10px;
+  min-width: 250px;
+  margin: 0 20px 0 20px;
+}
+
+.lig trough highlight {
+  all: unset;
+  background-color:rgb(219,193,117);
+  border-radius: 10px;
+}
+
+.light-slider{
+  color:rgb(219,193,117);
+}
+
+.clear-container{
+  margin:6px 10px;
+}
+
+.nheader{
+  font-size:20px;
+  color:rgb(205,212,246);
+}
+
+.clear{
+  color:rgb(230,100,100);
+  font-size:30px;
+  transition: color 0.3s;
+  &:hover{
+    color:rgb(219,193,117);
+  }
+}
+
+.music-container{
+  min-width:355px;
+  margin:5.5px;
+  padding:18px 17px;
+  border-radius:18px;
+  background-color:rgba(24,24,37,0.96);
+}
+
+.music-thumbnail{
+  min-width:78px;
+  min-height:78px;
+  border-radius:8px;
+  background-repeat:no-repeat;
+  background-size:cover;
+  background-position:center;
+}
+
+.music-thumbnail.no-art{
+  background-color:#202234;
+  background-image:repeating-linear-gradient(135deg, rgba(137,180,250,0.08) 0px, rgba(137,180,250,0.08) 7px, transparent 7px, transparent 14px);
+}
+
+.music-art-placeholder{
+  color:rgba(166,173,200,0.42);
+  font-size:9px;
+}
+
+.music-body{
+  margin-left:16px;
+}
+
+.app-ico{
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    min-height: 2.5rem;
+    min-width: 2.5rem;
+}
+
+.main-title{
+  color:#cdd6f4;
+  font-family:"JetBrainsMono Nerd Font";
+  font-size:13px;
+}
+
+.artist{
+  margin-top:8px;
+  color:#6c7086;
+  font-family:"JetBrainsMono Nerd Font";
+  font-size:10px;
+}
+
+.music-slider{
+  margin-top:11px;
+}
+
+.music-slider trough {
+  all: unset;
+  background-color:rgba(108,112,134,0.25);
+  border-radius:4px;
+  min-height:3px;
+  min-width:255px;
+}
+
+.music-slider trough progress {
+  all: unset;
+  background-color:#89b4fa;
+  border-radius:4px;
+}
+
+.music-timer{
+  color:#6c7086;
+  font-family:"JetBrainsMono Nerd Font";
+  font-size:10px;
+}
+
+.music-footer{
+  margin-top:10px;
+}
+
+.music-action .mico{
+  color:#8990ad;
+  font-size:17px;
+  padding:2px;
+  transition:color 0.3s;
+  &:hover{
+    color:#89b4fa;
+  }
+}
+
+.media-seek{
+  min-width:17px;
+  min-height:17px;
+}
+
+.media-seek-back image{
+  -gtk-icon-transform: scaleX(-1);
+}
+
+.media-play{
+  color:#89b4fa;
+}
+
+.vol-mini trough {
+  all: unset;
+  margin-left:7px;
+  background-color: rgba(70,70,70,0.4);
+  border-radius: 50px;
+  min-height: 5px;
+  min-width: 100px;
+}
+
+.vol-mini trough highlight {
+  all: unset;
+  background-color:rgb(144, 104, 220);
+  border-radius: 10px;
+}
+
+// Barra de status: bar.scss é gerado por lua/build.lua a partir dos
+// tokens do "Hyprland Rice Kit". Vem por último de propósito: as regras
+// da barra e o `* { all: unset }` do topo têm a mesma especificidade,
+// então quem chega depois é quem vale.
+
+@import "bar";
+
+@import "shortcuts";

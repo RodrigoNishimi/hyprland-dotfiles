@@ -1,0 +1,20 @@
+font-family = JetBrains Mono
+font-style = Regular
+font-size = 12
+bold-is-bright = true
+
+# ./colors é gerado por `theme set`.
+config-file = colors
+
+cursor-style = block
+cursor-style-blink = true
+cursor-invert-fg-bg = true
+shell-integration-features = no-cursor
+
+mouse-hide-while-typing = true
+
+confirm-close-surface = false
+
+window-decoration = false
+
+custom-shader = ./galaxy.glsl

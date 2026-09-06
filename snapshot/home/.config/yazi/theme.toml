@@ -1,0 +1,116 @@
+# ARQUIVO GERADO POR `theme set tokyonight` — NÃO EDITE.
+#
+# O yazi carrega o theme-dark.toml/theme-light.toml embutido e usa este arquivo
+# como camada de override, então só precisa estar aqui o que muda de cor. O
+# comportamento fica no yazi.toml e os atalhos no keymap.toml, ambos versionados.
+#
+# As regras de [filetype] ficam de fora de propósito: elas usam nomes ANSI
+# (blue para diretório, green para executável) que o terminal já resolve com a
+# paleta do tema, via alacritty-colors.toml e ghostty-colors.
+#
+# O yazi não relê o tema em tempo de execução: instâncias abertas só pegam as
+# cores novas ao reiniciar.
+
+[mgr]
+cwd = { fg = "#7dcfff" }
+
+# O highlight do preview é do syntect, que só lê tmTheme e exige caminho
+# absoluto. O arquivo também é gerado, pelo yazi-syntax.tmTheme.in.
+syntect_theme = "@@HOME@@/.config/yazi/theme.tmTheme"
+
+find_keyword  = { fg = "#e0af68", bold = true, italic = true, underline = true }
+find_position = { fg = "#bb9af7", bg = "reset", bold = true, italic = true }
+
+symlink_target = { fg = "#9aa5ce", italic = true }
+
+marker_copied   = { fg = "#9ece6a", bg = "#9ece6a" }
+marker_cut      = { fg = "#f7768e",   bg = "#f7768e" }
+marker_marked   = { fg = "#2ac3de",    bg = "#2ac3de" }
+marker_selected = { fg = "#e0af68", bg = "#e0af68" }
+
+count_copied   = { fg = "#c0caf5", bg = "#9ece6a" }
+count_cut      = { fg = "#c0caf5", bg = "#f7768e" }
+count_selected = { fg = "#1a1b26", bg = "#e0af68" }
+
+border_style = { fg = "#292e42" }
+
+[tabs]
+active   = { fg = "#1a1b26",   bg = "#7aa2f7", bold = true }
+inactive = { fg = "#9aa5ce", bg = "#16161e" }
+
+[mode]
+normal_main = { fg = "#1a1b26",    bg = "#7aa2f7", bold = true }
+normal_alt  = { fg = "#7aa2f7",  bg = "#16161e" }
+select_main = { fg = "#1a1b26",    bg = "#9ece6a", bold = true }
+select_alt  = { fg = "#9ece6a", bg = "#16161e" }
+unset_main  = { fg = "#1a1b26",    bg = "#e0af68", bold = true }
+unset_alt   = { fg = "#e0af68", bg = "#16161e" }
+
+# É aqui que mora o destaque do item sob o cursor: o yazi não tem mais
+# `hovered` no [mgr].
+[indicator]
+parent  = { fg = "#c0caf5", bg = "#292e42" }
+current = { fg = "#1a1b26", bg = "#bb9af7", bold = true }
+preview = { underline = true }
+
+[status]
+overall = { fg = "#c0caf5", bg = "#16161e" }
+
+perm_sep   = { fg = "#565f89" }
+perm_type  = { fg = "#9ece6a" }
+perm_read  = { fg = "#e0af68" }
+perm_write = { fg = "#f7768e" }
+perm_exec  = { fg = "#7dcfff" }
+
+progress_label  = { fg = "#c0caf5", bold = true }
+progress_normal = { fg = "#7aa2f7", bg = "#292e42" }
+progress_error  = { fg = "#f7768e",  bg = "#292e42" }
+
+[which]
+border          = { fg = "#7aa2f7" }
+mask            = { bg = "#16161e" }
+cand            = { fg = "#2ac3de" }
+rest            = { fg = "#565f89" }
+desc            = { fg = "#bb9af7" }
+separator_style = { fg = "#292e42" }
+
+[confirm]
+border  = { fg = "#7aa2f7" }
+title   = { fg = "#7aa2f7" }
+list    = { fg = "#2ac3de" }
+btn_yes = { fg = "#1a1b26", bg = "#7aa2f7", bold = true }
+btn_no  = { fg = "#c0caf5" }
+
+[spot]
+border   = { fg = "#7aa2f7" }
+title    = { fg = "#7aa2f7" }
+tbl_col  = { fg = "#2ac3de" }
+tbl_cell = { fg = "#e0af68", reversed = true }
+
+[notify]
+title_info  = { fg = "#9ece6a" }
+title_warn  = { fg = "#e0af68" }
+title_error = { fg = "#f7768e" }
+
+[pick]
+border   = { fg = "#7aa2f7" }
+active   = { fg = "#bb9af7", bold = true }
+inactive = {}
+
+[input]
+border   = { fg = "#7aa2f7" }
+selected = { reversed = true }
+
+[cmp]
+border   = { fg = "#7aa2f7" }
+active   = { fg = "#1a1b26", bg = "#bb9af7" }
+inactive = {}
+
+[tasks]
+border  = { fg = "#7aa2f7" }
+hovered = { fg = "#bb9af7", bold = true }
+
+[help]
+border  = { fg = "#7aa2f7" }
+chord   = { fg = "#2ac3de" }
+hovered = { fg = "#1a1b26", bg = "#3b4261", bold = true }

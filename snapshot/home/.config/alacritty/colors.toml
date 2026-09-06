@@ -1,0 +1,76 @@
+# ARQUIVO GERADO POR `theme set tokyonight` — NÃO EDITE.
+
+[window]
+opacity = 0.92
+
+[colors.primary]
+foreground = "#c0caf5"
+background = "#101014"
+dim_foreground = "#9aa5ce"
+bright_foreground = "#c0caf5"
+
+[colors.cursor]
+text = "#1a1b26"
+cursor = "#c0caf5"
+
+[colors.vi_mode_cursor]
+text = "#c0caf5"
+cursor = "#3b4261"
+
+[colors.search.matches]
+foreground = "#9aa5ce"
+background = "#292e42"
+
+[colors.search.focused_match]
+foreground = "#1a1b26"
+background = "#7dcfff"
+
+[colors.hints.start]
+foreground = "#9aa5ce"
+background = "#16161e"
+
+[colors.hints.end]
+foreground = "#565f89"
+background = "#16161e"
+
+[colors.line_indicator]
+foreground = "None"
+background = "None"
+
+[colors.footer_bar]
+foreground = "#c0caf5"
+background = "#16161e"
+
+[colors.selection]
+text = "#c0caf5"
+background = "#292e42"
+
+[colors.normal]
+black = "#3b4261"
+red = "#f7768e"
+green = "#9ece6a"
+yellow = "#e0af68"
+blue = "#7aa2f7"
+magenta = "#bb9af7"
+cyan = "#7dcfff"
+white = "#c0caf5"
+
+[colors.bright]
+black = "#565f89"
+red = "#ff7a93"
+green = "#b9f27c"
+yellow = "#ff9e64"
+blue = "#7da6ff"
+magenta = "#bb9af7"
+cyan = "#0db9d7"
+white = "#c0caf5"
+
+[colors.dim]
+black = "#565f89"
+red = "#f7768e"
+green = "#9ece6a"
+yellow = "#e0af68"
+blue = "#7aa2f7"
+magenta = "#bb9af7"
+cyan = "#7dcfff"
+white = "#c0caf5"

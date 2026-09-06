@@ -1,0 +1,135 @@
+#!/usr/bin/env bash
+# tmux-sessionizer: abre, ou volta para, uma sessão do tmux por diretório.
+#
+# A lista vem de duas fontes: o zoxide, que cobre os diretórios já visitados, e
+# as raízes de ~/.config/tmux-sessionizer/paths, que cobrem os projetos ainda
+# não abertos. Um diretório clonado fora das raízes entra no zoxide após um cd.
+#
+# Nesse arquivo, linha iniciada por `-` é padrão de exclusão e linha iniciada
+# por `+` fixa o diretório no topo da lista, na ordem em que aparece. Os
+# diretórios de ~/.config vindos de um pacote do stow já são excluídos.
+
+DOTFILES="${DOTFILES:-$HOME/dotfiles}"
+PATHS_FILE="${XDG_CONFIG_HOME:-$HOME/.config}/tmux-sessionizer/paths"
+ROOTS=()
+EXCLUDES=()
+PINS=()
+
+# Roda no shell principal: os arrays precisam sobreviver ao $( ) de baixo.
+load_config() {
+    [[ -r $PATHS_FILE ]] || return 0
+
+    local line
+    while IFS= read -r line; do
+        line=${line%%#*}
+        line=${line//[[:space:]]/}
+        [[ -z $line ]] && continue
+
+        if [[ $line == -* ]]; then
+            line=${line#-}
+            EXCLUDES+=("${line/#\~/$HOME}")
+        elif [[ $line == +* ]]; then
+            line=${line#+}
+            PINS+=("${line/#\~/$HOME}")
+        else
+            ROOTS+=("$line")
+        fi
+    done < "$PATHS_FILE"
+}
+
+# Sem glob e sem `:profundidade`, ao contrário das raízes: o `+` define um
+# caminho literal em posição fixa, e um glob devolveria a ordenação ao find.
+list_pins() {
+    local dir
+    for dir in ${PINS[@]+"${PINS[@]}"}; do
+        [[ -d $dir ]] && printf '%s\n' "$dir"
+    done
+}
+
+list_roots() {
+    local entry path depth p
+    for entry in ${ROOTS[@]+"${ROOTS[@]}"}; do
+        path=${entry%%:*}
+        depth=${entry#*:}
+        [[ $depth == "$path" ]] && depth=1
+        path=${path/#\~/$HOME}
+
+        for p in $path; do  # sem aspas: expande glob, como ~/projetos/[A-Z]*
+            [[ -d $p ]] || continue
+            find "$p" -mindepth 1 -maxdepth "$depth" -type d 2>/dev/null
+        done
+    done
+}
+
+# ~/.config/nvim e afins são apenas symlinks para o repositório, e uma sessão
+# ali não fica dentro de um repositório git: o alvo correto é o pacote. A lista
+# é derivada do disco, então pacote novo já entra e pacote removido já sai.
+exclude_stowed_config() {
+    local name
+    while IFS= read -r name; do
+        EXCLUDES+=("$HOME/.config/$name")
+    done < <(find "$DOTFILES"/packages/*/.config -mindepth 1 -maxdepth 1 \
+        -printf '%f\n' 2>/dev/null | sort -u)
+}
+
+list_zoxide() {
+    command -v zoxide >/dev/null || return 0
+    zoxide query -l 2>/dev/null
+}
+
+keep() {
+    local dir=$1 pat
+    [[ -d $dir ]] || return 1
+    for pat in ${EXCLUDES[@]+"${EXCLUDES[@]}"}; do
+        [[ $dir == $pat ]] && return 1
+    done
+    return 0
+}
+
+load_config
+exclude_stowed_config
+
+# --tiebreak=index: nas buscas curtas o score empata quase sempre, então quem
+# decide é a ordem da entrada, e não o caminho mais curto do padrão do fzf.
+#
+# Os fixados passam por fora do keep, e o awk fica com a primeira ocorrência:
+# assim o `+` vence o `-` e mantém a posição mesmo estando também no zoxide.
+selected=$( {
+        list_pins
+        { list_zoxide; list_roots; } |
+            while IFS= read -r dir; do
+                keep "$dir" && printf '%s\n' "$dir"
+            done
+    } | awk '!seen[$0]++' |
+    fzf --height 40% --tmux center --layout reverse --tiebreak=index)
+
+if [[ -z "$selected" ]]; then
+    exit 0
+fi
+
+if command -v zoxide >/dev/null 2>&1; then
+    zoxide add "$selected"
+fi
+
+selected_name=$(basename "$selected" | tr ":,. " "____")
+
+if [[ $selected_name == "nvim" ]]; then
+    selected_name="Nvim"
+fi
+
+switch_to() {
+    if [[ -z "$TMUX" ]]; then
+        tmux attach-session -t "$selected_name"
+    else
+        tmux switch-client -t "$selected_name"
+    fi
+}
+
+if tmux has-session -t="$selected_name" 2> /dev/null; then
+    switch_to
+    exit 0
+fi
+
+tmux new-session -ds "$selected_name" -c "$selected"
+tmux send-keys -t "$selected_name" "ready-tmux" ^M
+switch_to

@@ -1,0 +1,20 @@
+.shortcuts-panel {
+  background: rgba(24, 24, 37, 0.98);
+  color: #cdd6f4;
+  border: 1px solid rgba(137, 180, 250, 0.35);
+  border-radius: 22px;
+  padding: 24px;
+  font-size: 13px;
+}
+.shortcuts-title { font-size: 25px; font-weight: bold; color: #89b4fa; }
+.shortcuts-help { color: #a6adc8; font-size: 11px; }
+.shortcuts-search { background: #11111b; border: 1px solid #45475a; border-radius: 10px; padding: 12px; }
+.shortcuts-search:focus { border-color: #89b4fa; }
+.shortcuts-section { color: #cba6f7; font-size: 18px; font-weight: bold; padding: 8px 0; }
+.shortcuts-row { background: rgba(49, 50, 68, 0.65); border-radius: 8px; padding: 9px 12px; }
+.shortcuts-key { color: #a6e3a1; font-weight: bold; }
+.shortcuts-context { color: #a6adc8; font-size: 11px; }
+.shortcuts-close { background: #313244; padding: 8px 12px; border-radius: 8px; }
+.shortcuts-close:hover { background: #45475a; color: #f38ba8; }
+.shortcuts-warning { color: #f9e2af; }
+.shortcuts-panel scrollbar slider { background: #585b70; min-width: 5px; border-radius: 5px; }

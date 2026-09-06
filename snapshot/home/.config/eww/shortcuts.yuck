@@ -1,0 +1,40 @@
+(defvar shortcuts_groups "[]")
+(defvar shortcuts_count 0)
+(defvar shortcuts_warning "")
+(defwindow shortcuts
+  :monitor 0
+  :stacking "overlay"
+  :exclusive false
+  :focusable true
+  :geometry (geometry :anchor "center" :width "86%" :height "78%")
+  (box :class "shortcuts-panel" :orientation "v" :space-evenly false :spacing 14
+    (box :space-evenly false
+      (label :class "shortcuts-title" :text "Atalhos do seu ambiente" :hexpand true :xalign 0)
+      (button :class "shortcuts-close" :onclick "eww close shortcuts" "Fechar ×"))
+    (label :class "shortcuts-help" :xalign 0
+      :text "Super + F1 · abrir / fechar    |    Super = tecla Windows    |    Nvim: Espaço = leader")
+    (box :space-evenly false :spacing 8
+      (button :class "shortcuts-close" :onclick "./scripts/keybinds.py search" "Todos")
+      (button :class "shortcuts-close" :onclick "./scripts/keybinds.py search Hyprland" "Hyprland")
+      (button :class "shortcuts-close" :onclick "./scripts/keybinds.py search Tmux" "Tmux")
+      (button :class "shortcuts-close" :onclick "./scripts/keybinds.py search Nvim" "Nvim")
+      (button :class "shortcuts-close" :onclick "./scripts/keybinds.py search Yazi" "Yazi")
+      (button :class "shortcuts-close" :onclick "./scripts/keybinds.py search Zsh" "Zsh"))
+    (label :class "shortcuts-help" :xalign 0 :text "Buscar por tecla, ação, aplicativo ou modo:")
+    (input :class "shortcuts-search" :tooltip "Buscar por tecla, ação, aplicativo ou modo"
+      :onchange "./scripts/keybinds.py search {}")
+    (label :class "shortcuts-help" :xalign 0 :text "${shortcuts_count} atalhos · n: normal / i: inserção / x: visual / o: operador / c: comando / t: terminal")
+    (label :class "shortcuts-warning" :visible {shortcuts_warning != ""} :text shortcuts_warning :wrap true)
+    (scroll :vexpand true :hscroll false :vscroll true
+      (box :orientation "v" :space-evenly false :spacing 18
+        (label :visible {shortcuts_count == 0} :text "Nenhum atalho encontrado.")
+        (for group in shortcuts_groups
+          (box :orientation "v" :space-evenly false :spacing 5
+            (label :class "shortcuts-section" :xalign 0 :text "${group.name} · ${arraylength(group.rows)}")
+            (for row in {group.rows}
+              (box :class "shortcuts-row" :space-evenly false :spacing 14
+                :tooltip "${row.description}\n\nFonte: ${row.source}"
+                (label :class "shortcuts-key" :xalign 0 :width 240 :limit-width 28 :text {row.key})
+                (label :class "shortcuts-context" :xalign 0 :width 165 :limit-width 20 :text {row.context})
+                (label :class "shortcuts-action" :xalign 0 :hexpand true :limit-width 88 :text {row.description})))))))
+    (label :class "shortcuts-help" :xalign 0 :text "Atualizado ao abrir · Passe o mouse para ver a ação completa · C = Ctrl / M = Alt / S = Shift · → indica sequência")))
