@@ -1,10 +1,30 @@
 local gh = function(x) return "https://github.com/" .. x end
 
+local fzf_path = vim.fs.joinpath(vim.fn.stdpath("data"), "site", "pack", "core", "opt", "telescope-fzf-native.nvim")
+
+local function build_fzf(path)
+    local library = vim.fs.joinpath(path, "build", "libfzf.so")
+    if vim.fn.filereadable(library) == 1 then
+        return true
+    end
+    if vim.fn.isdirectory(path) == 0 then
+        return false
+    end
+    local result = vim.system({ "make" }, { cwd = path, text = true }):wait()
+    if result.code ~= 0 then
+        vim.notify("falha ao compilar telescope-fzf-native.nvim:\n" .. (result.stderr or ""), vim.log.levels.ERROR)
+        return false
+    end
+    return vim.fn.filereadable(library) == 1
+end
+
 vim.api.nvim_create_autocmd("PackChanged", {
     callback = function(ev)
         local name, kind = ev.data.spec.name, ev.data.kind
         if name == "telescope-fzf-native.nvim" and (kind == "install" or kind == "update") then
-            vim.system({ "make" }, { cwd = ev.data.path }):wait()
+            if build_fzf(ev.data.path) and package.loaded.telescope then
+                pcall(require("telescope").load_extension, "fzf")
+            end
         end
     end
 })
@@ -49,7 +69,9 @@ require("telescope").setup({
     }
 })
 
-require("telescope").load_extension("fzf")
+if build_fzf(fzf_path) then
+    require("telescope").load_extension("fzf")
+end
 
 local builtin = require("telescope.builtin")
 vim.keymap.set("n", "<leader>pf", builtin.find_files, {})

@@ -36,13 +36,16 @@ if (( ! skip_packages )); then
     [[ -n $helper ]] || { echo 'Install paru or yay first (AUR packages such as eww are required), or use --skip-packages.' >&2; exit 1; }
     mapfile -t packages < <(sed 's/#.*//; /^[[:space:]]*$/d' "$repo/packages.txt")
     "$helper" -S --needed "${packages[@]}"
-    sudo systemctl enable --now NetworkManager bluetooth power-profiles-daemon
+    sudo systemctl enable --now NetworkManager bluetooth power-profiles-daemon rtkit-daemon
 fi
 python3 "$repo/manage.py" install --monitors "$monitors" --gpu "$gpu"
 mkdir -p "$HOME/Imagens/screenshots"
 if (( ! skip_packages )) && [[ ! -e $HOME/.tmux/plugins/tpm ]]; then
     git clone --depth 1 https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
 fi
-if command -v lua >/dev/null; then lua "$HOME/.config/eww/lua/build.lua"; fi
+if command -v lua >/dev/null; then
+    HOME="$HOME" XDG_CONFIG_HOME="$HOME/.config" \
+        lua "$HOME/.config/eww/lua/build.lua"
+fi
 if command -v fc-cache >/dev/null; then fc-cache -f "$HOME/.local/share/fonts"; fi
 echo 'Done. Use a Hyprland (uwsm) session. No session was reloaded automatically.'

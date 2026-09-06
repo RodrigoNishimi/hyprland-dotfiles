@@ -15,7 +15,7 @@ cd hyprland-dotfiles
 ./install.sh
 ```
 
-O repositório é privado: autentique seu Git/GitHub CLI para clonar. O instalador usa o helper para instalar `packages.txt`, habilita NetworkManager, Bluetooth e power-profiles-daemon, aplica os arquivos, prepara TPM e recompila a barra/fontes. A lista inclui pacotes AUR: a compilação pode pedir interação. Drivers de GPU e a instalação básica do Arch ficam por conta da máquina de destino. As versões observadas constam em `snapshot/versions.txt`; não são travadas nem instaladas em massa.
+O repositório é privado: autentique seu Git/GitHub CLI para clonar. O instalador usa o helper para instalar `packages.txt`, habilita NetworkManager, Bluetooth, power-profiles-daemon e RTKit, aplica os arquivos, prepara TPM e recompila a barra/fontes. A lista inclui pacotes AUR: a compilação pode pedir interação. Drivers de GPU e a instalação básica do Arch ficam por conta da máquina de destino. As versões observadas constam em `snapshot/versions.txt`; não são travadas nem instaladas em massa.
 
 **O instalador sobrescreve arquivos gerenciados sem fazer backup.** Arquivos extras são preservados. Links de configuração são substituídos por cópias sem escrever no destino antigo. Não há alteração automática do shell de login, recarga da sessão ou reinicialização. Depois, entre em uma sessão Hyprland com UWSM. Zinit e plugins do Neovim podem ser baixados na primeira abertura.
 
@@ -71,7 +71,7 @@ python3 audit.py
 bash -n install.sh backup.sh
 ```
 
-Os testes incluem aplicação em HOME temporário, repetição, preservação de arquivos extras e alvos de symlinks, captura sem backups antigos, geração Eww e `Hyprland --verify-config`. O teste completo requer Lua e Hyprland; não inicia uma sessão gráfica. A instalação dos pacotes não foi executada novamente na máquina de origem.
+Os testes incluem aplicação em HOME temporário, repetição, preservação de arquivos extras e alvos de symlinks, captura sem backups antigos, geração Eww, `Hyprland --verify-config` e a primeira inicialização do Neovim. O teste completo requer Lua, Hyprland, Neovim e ferramentas de compilação; não inicia uma sessão Hyprland nova. A instalação dos pacotes não foi executada novamente na máquina de origem.
 
 `audit.py` compara conteúdo e permissões dos arquivos gerenciados com uma captura atual, normalizando os caminhos e adaptações dos helpers. Na revisão de 06/09/2026 foram conferidos 320 arquivos em 51 raízes. A revisão incluiu plugins locais do Neovim (`~/plugins`), preferências nwg-look, associações MIME, o lançador de URI e o ignore global do Git. As referências antigas do Telescope e tmux-sessionizer foram atualizadas; o gerenciador antigo `dots` foi aposentado. Credenciais, perfis de navegador e histórico de versões antigas não fazem parte dessa contagem.
 
