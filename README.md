@@ -1,6 +1,6 @@
 # Hyprland de Rodrigo Nishimi — Arch Linux
 
-Configuração pessoal capturada do sistema em uso em 06/09/2026. Inclui as customizações fora de `~/dotfiles`, com arquivos reais no lugar dos links simbólicos. O repositório original continua intacto.
+Configuração pessoal capturada do sistema em uso em 06/09/2026. Inclui as customizações fora de `~/dotfiles`, com arquivos reais no lugar dos links simbólicos. O desktop foi migrado para funcionar independentemente dos repositórios antigos.
 
 Inclui Hyprland em Lua, Eww (barra, painéis, OSD, notificações, mídia e catálogo de atalhos), Hyprlock/Hypridle/Hyprpaper/Hyprsunset, Mako, Rofi, temas, wallpapers, fontes locais, Ghostty/Alacritty, Zsh, tmux, Neovim, Yazi e configurações de aparência. Quickshell e Waybar são preservados como alternativas; a sessão inicia Eww. O tema capturado é Tokyo Night, teclado brasileiro.
 
@@ -67,10 +67,13 @@ Edite as fontes Lua do Eww e execute `lua ~/.config/eww/lua/build.lua` para gera
 
 ```bash
 python3 -m unittest discover -s tests -v
+python3 audit.py
 bash -n install.sh backup.sh
 ```
 
 Os testes incluem aplicação em HOME temporário, repetição, preservação de arquivos extras e alvos de symlinks, captura sem backups antigos, geração Eww e `Hyprland --verify-config`. O teste completo requer Lua e Hyprland; não inicia uma sessão gráfica. A instalação dos pacotes não foi executada novamente na máquina de origem.
+
+`audit.py` compara conteúdo e permissões dos arquivos gerenciados com uma captura atual, normalizando os caminhos e adaptações dos helpers. Na revisão de 06/09/2026 foram conferidos 320 arquivos em 51 raízes. A revisão incluiu plugins locais do Neovim (`~/plugins`), preferências nwg-look, associações MIME, o lançador de URI e o ignore global do Git. As referências antigas do Telescope e tmux-sessionizer foram atualizadas; o gerenciador antigo `dots` foi aposentado. Credenciais, perfis de navegador e histórico de versões antigas não fazem parte dessa contagem.
 
 ## Origem
 

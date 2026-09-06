@@ -41,6 +41,15 @@
     ".local/share/fonts",
     ".local/state/dotfiles/current-theme",
     ".local/state/dotfiles/profile",
+    "plugins/gruber-darker",
+    "plugins/present",
+    ".config/nwg-look",
+    ".local/share/nwg-look",
+    ".config/mimeapps.list",
+    ".config/git/ignore",
+    ".local/share/applications/claude-code-url-handler.desktop",
+    ".bash_profile",
+    ".bash_logout",
     ".local/share/hyprland-dotfiles"
   ]
 }

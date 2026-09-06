@@ -15,6 +15,9 @@ ROOTS = [f'.config/{a}' for a in APPS] + ['.config/starship.toml', '.zshrc', '.z
 BINS = 'printAndEdit ready-tmux rofi-script run testar-cor theme tmux-lazygit tmux-relative-numbers tmux-sessionizer window-info'.split()
 ROOTS += [f'.local/bin/{b}' for b in BINS]
 ROOTS += ['.local/share/fonts', '.local/state/dotfiles/current-theme', '.local/state/dotfiles/profile']
+ROOTS += ['plugins/gruber-darker', 'plugins/present', '.config/nwg-look',
+          '.local/share/nwg-look', '.config/mimeapps.list', '.config/git/ignore',
+          '.local/share/applications/claude-code-url-handler.desktop', '.bash_profile', '.bash_logout']
 ASSETS = '.local/share/hyprland-dotfiles'
 SKIP = ['.git', '__pycache__', '*.pyc', '*.bak*', '.backup*', '*~', '*.zip', 'history', '*.log', 'cover.png']
 
@@ -101,6 +104,18 @@ def capture(args):
             text = path.read_text()
             lines = text.splitlines(keepends=True)
             path.write_text(''.join('DOTFILES="${DOTFILES:-$HOME/.local/share/hyprland-dotfiles}"\n' if line.startswith('DOTFILES=') else line for line in lines))
+    telescope = stage / 'home/.config/nvim/lua/NeoVim/plugins/telescope.lua'
+    if telescope.exists():
+        telescope.write_text(telescope.read_text().replace('~/dotfiles/packages/nvim/.config/nvim', '~/.config/nvim'))
+    sessionizer = stage / 'home/.local/bin/tmux-sessionizer'
+    if sessionizer.exists():
+        text = sessionizer.read_text().replace('DOTFILES="${DOTFILES:-$HOME/dotfiles}"', 'DOTFILES="${DOTFILES:-$HOME/hyprland-dotfiles}"')
+        # Configs are now independent files, not Stow packages.
+        text = text.replace('\nexclude_stowed_config\n', '\n# Stow exclusions no longer apply.\n')
+        sessionizer.write_text(text)
+    paths = stage / 'home/.config/tmux-sessionizer/paths'
+    if paths.exists():
+        paths.write_text(paths.read_text().replace('~/dotfiles/packages', '~/hyprland-dotfiles/snapshot/home/.config'))
     (stage / 'manifest.json').write_text(json.dumps({'roots': roots}, indent=2) + '\n')
     if shutil.which('pacman'):
         for flag, name in [('-Q', 'versions.txt'), ('-Qqe', 'explicit.txt'), ('-Qqm', 'foreign.txt')]:

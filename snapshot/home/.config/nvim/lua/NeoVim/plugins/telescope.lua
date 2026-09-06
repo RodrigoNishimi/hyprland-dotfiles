@@ -61,7 +61,7 @@ vim.keymap.set("n", "<leader>ph", builtin.help_tags, {})
 
 vim.keymap.set("n", "<leader>pe", function()
     builtin.find_files({
-        cwd = "~/dotfiles/packages/nvim/.config/nvim"
+        cwd = "~/.config/nvim"
     })
 end)
 

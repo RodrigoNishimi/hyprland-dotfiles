@@ -9,7 +9,7 @@
 # por `+` fixa o diretório no topo da lista, na ordem em que aparece. Os
 # diretórios de ~/.config vindos de um pacote do stow já são excluídos.
 
-DOTFILES="${DOTFILES:-$HOME/dotfiles}"
+DOTFILES="${DOTFILES:-$HOME/hyprland-dotfiles}"
 PATHS_FILE="${XDG_CONFIG_HOME:-$HOME/.config}/tmux-sessionizer/paths"
 ROOTS=()
 EXCLUDES=()
@@ -87,7 +87,7 @@ keep() {
 }
 
 load_config
-exclude_stowed_config
+# Stow exclusions no longer apply.
 
 # --tiebreak=index: nas buscas curtas o score empata quase sempre, então quem
 # decide é a ordem da entrada, e não o caminho mais curto do padrão do fzf.
