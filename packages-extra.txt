@@ -1,0 +1,49 @@
+# Optional packages installed in September 2026; not required for the desktop.
+# Install alongside packages.txt with: ./install.sh --extra
+# AUR packages are marked below. Services need separate configuration.
+
+# System, boot and maintenance
+os-prober
+dosfstools
+mtools
+nano
+ntp
+man-pages
+pacman-contrib
+reflector
+
+# Audio and graphics diagnostics
+alsa-utils
+noise-suppression-for-voice
+libva-utils
+vulkan-tools
+
+# Network and command line
+nmap
+bc
+entr
+glow
+unrar
+ncdu
+lsof
+tldr
+
+# Development and containers
+ctags
+jdk21-openjdk
+uv
+postgresql
+docker
+docker-compose
+
+# Documents and media
+pandoc-bin                  # AUR
+tectonic
+ghostscript
+libreoffice-fresh
+imagemagick
+mpv
+imv
+
+# Communication
+discord

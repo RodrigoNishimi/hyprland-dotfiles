@@ -15,6 +15,8 @@ cd hyprland-dotfiles
 
 O instalador usa o helper para instalar `packages.txt`, habilita NetworkManager, Bluetooth, power-profiles-daemon e RTKit, aplica os arquivos, prepara TPM e recompila a barra/fontes. A lista inclui pacotes AUR: a compilação pode pedir interação. Drivers de GPU e a instalação básica do Arch ficam por conta da máquina de destino. As versões observadas constam em `snapshot/versions.txt`; não são travadas nem instaladas em massa.
 
+Para instalar também os aplicativos e utilitários opcionais de `packages-extra.txt`, use `./install.sh --extra`. Essa opção instala as duas listas sem duplicatas e continua aplicando o desktop. Serviços extras, como Docker e PostgreSQL, precisam ser configurados separadamente. `./install.sh --extra --dry-run` permite conferir a aplicação sem alterações; `--skip-packages` pula ambas as listas.
+
 **O instalador sobrescreve arquivos gerenciados sem fazer backup.** Arquivos extras são preservados. Links de configuração são substituídos por cópias sem escrever no destino antigo. Não há alteração automática do shell de login, recarga da sessão ou reinicialização. Depois, entre em uma sessão Hyprland com UWSM. Zinit e plugins do Neovim podem ser baixados na primeira abertura.
 
 Antes de instalar pacotes ou habilitar serviços, o script verifica o snapshot e os conflitos de tipo entre arquivos e diretórios no destino. `--dry-run` faz essa mesma preparação em um diretório temporário, sem alterar o HOME de destino. Essa checagem não é uma transação: falhas de disco ou permissões durante a aplicação ainda podem interromper a cópia. Execute `./backup.sh` antes se precisar preservar as configurações gerenciadas atuais.
@@ -77,6 +79,7 @@ O backup cobre somente as configurações e recursos selecionados em `manage.py`
 - `snapshot/home/.local/share/hyprland-dotfiles/`: temas, templates e wallpapers; helpers `theme` e `rofi-script` foram adaptados para esse destino.
 - `manage.py`: captura e aplicação portáveis usando apenas a biblioteca padrão Python.
 - `install.sh`: dependências e preparação da sessão Arch.
+- `packages.txt` e `packages-extra.txt`: dependências do desktop e pacotes opcionais, respectivamente.
 - `backup.sh`: captura manual e atualização do snapshot.
 
 Edite as fontes Lua do Eww e execute `lua ~/.config/eww/lua/build.lua` para gerar a barra. Use `./backup.sh --update` após customizar o desktop. O antigo gerenciador Stow `dots` não é instalado: este repositório usa cópias gerenciadas pelo novo instalador.

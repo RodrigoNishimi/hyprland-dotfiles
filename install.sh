@@ -3,17 +3,20 @@
 set -euo pipefail
 repo=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
 skip_packages=0
+extra=0
 dry=0
 monitors=auto
 gpu=auto
 while (($#)); do
     case "$1" in
         --skip-packages) skip_packages=1 ;;
+        --extra) extra=1 ;;
         --dry-run) dry=1 ;;
         --monitors) shift; monitors=${1:?use auto or original} ;;
         --gpu) shift; gpu=${1:?use auto or original} ;;
         -h|--help)
-            echo 'Usage: ./install.sh [--dry-run] [--skip-packages] [--monitors auto|original] [--gpu auto|original]'
+            echo 'Usage: ./install.sh [--dry-run] [--skip-packages] [--extra] [--monitors auto|original] [--gpu auto|original]'
+            echo '--extra includes optional packages from packages-extra.txt; --skip-packages skips both lists.'
             echo 'Overwrites managed files WITHOUT backups. Run as your desktop user.'
             exit 0 ;;
         *) echo "Unknown argument: $1" >&2; exit 2 ;;
@@ -23,8 +26,10 @@ done
 [[ $monitors == auto || $monitors == original ]] || exit 2
 [[ $gpu == auto || $gpu == original ]] || exit 2
 (( EUID != 0 )) || { echo 'Run as your desktop user, not root.' >&2; exit 1; }
+package_files=("$repo/packages.txt")
+(( ! extra )) || package_files+=("$repo/packages-extra.txt")
 if ((dry)); then
-    echo 'Dry run: dependencies from packages.txt; no packages, services or files will change.'
+    echo "Dry run: dependencies from ${package_files[*]}; no packages, services or files will change."
     exec python3 "$repo/manage.py" install --dry-run --monitors "$monitors" --gpu "$gpu"
 fi
 # Catch incomplete snapshots and destination conflicts before changing the system.
@@ -36,7 +41,10 @@ if (( ! skip_packages )); then
         if command -v "$candidate" >/dev/null; then helper=$candidate; break; fi
     done
     [[ -n $helper ]] || { echo 'Install paru or yay first (AUR packages such as eww are required), or use --skip-packages.' >&2; exit 1; }
-    mapfile -t packages < <(sed 's/#.*//; /^[[:space:]]*$/d' "$repo/packages.txt")
+    for package_file in "${package_files[@]}"; do
+        [[ -r $package_file ]] || { echo "Missing package list: $package_file" >&2; exit 1; }
+    done
+    mapfile -t packages < <(awk '{ sub(/#.*/, ""); gsub(/^[[:space:]]+|[[:space:]]+$/, ""); if (NF && !seen[$0]++) print }' "${package_files[@]}")
     "$helper" -S --needed "${packages[@]}"
     sudo systemctl enable --now NetworkManager bluetooth power-profiles-daemon rtkit-daemon
 fi
