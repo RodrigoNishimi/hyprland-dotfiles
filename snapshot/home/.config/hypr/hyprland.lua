@@ -14,3 +14,4 @@ require("conf.input")
 -- Interação e Regras
 require("conf.keybinds")
 require("conf.rules")
+require("conf.desktop-tools")

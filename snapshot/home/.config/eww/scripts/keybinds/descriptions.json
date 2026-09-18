@@ -1,4 +1,9 @@
 {
+  "SUPER + SHIFT + O": "Copiar texto de uma região da tela (OCR)",
+  "SUPER + CTRL + M": "Selecionar ou salvar perfil de monitores",
+  "SUPER + CTRL + RETURN": "Mostrar / ocultar terminal instantâneo",
+  "SUPER + CTRL + N": "Mostrar / ocultar notas rápidas",
+  "SUPER + CTRL + E": "Mostrar / ocultar arquivos (Yazi)",
   "SUPER + Q": "Abrir terminal Ghostty",
   "SUPER + SHIFT + Q": "Abrir Zen Browser",
   "SUPER + C": "Fechar janela ativa",

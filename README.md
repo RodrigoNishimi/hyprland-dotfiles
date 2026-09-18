@@ -29,6 +29,22 @@ Antes de instalar pacotes ou habilitar serviços, o script verifica o snapshot e
 
 Por padrão, usa modo preferido dos monitores, posicionamento automático e escala 1; remove as variáveis que forçavam NVIDIA para permitir a seleção normal do driver. Para HiDPI, ajuste `~/.config/hypr/conf/monitors.lua`. O snapshot original permanece preservado. Requer Hyprland compatível com a API Lua usada na versão 0.56.2 desta máquina; configurações antigas em hyprlang não são equivalentes.
 
+## OCR, monitores e janelas instantâneas
+
+| Atalho | Ação |
+| --- | --- |
+| `Super+Shift+O` | Selecionar uma região e copiar seu texto (português e inglês) |
+| `Super+Ctrl+M` | Escolher um perfil de monitores ou salvar a disposição atual |
+| `Super+Ctrl+Enter` | Mostrar/ocultar terminal com sessão tmux independente |
+| `Super+Ctrl+N` | Mostrar/ocultar notas rápidas no Neovim |
+| `Super+Ctrl+E` | Mostrar/ocultar arquivos no Yazi |
+
+OCR também está em Rofi → Trigger; monitores em Rofi → Setup. Cancelar a seleção ou não reconhecer texto preserva o clipboard. A imagem temporária é apagada após o reconhecimento local. O instalador inclui `tesseract`, `tesseract-data-por` e `tesseract-data-eng`; modelos locais em `~/.local/share/tessdata/` também são aceitos quando esses idiomas não estão instalados no sistema.
+
+Perfis: **Notebook** mantém uma tela ativa (prefere a interna); **Mesa** estende as telas; **Apresentação** espelha as externas na principal; **Automático** restaura uma disposição salva ou usa modos preferidos e escala 1. **Salvar disposição atual** memoriza resolução, frequência, escala, posição, rotação e telas desativadas. Preferências ficam em `~/.config/hypr/monitor-profiles.json`, por combinação de conectores e identificação das telas, e são reaplicadas ao entrar, recarregar a configuração ou conectar/desconectar monitores. As regras desses perfis têm precedência sobre `conf/monitors.lua`, inclusive ao instalar com `--monitors original`. Ao desativar ou remover uma tela, o Hyprland transfere seus workspaces para uma tela ativa.
+
+As janelas instantâneas permanecem abertas quando ocultadas; fechar o aplicativo permite recriá-lo no próximo atalho. O workspace especial `magic` continua disponível. As notas ficam em `~/.local/share/quick-notes/notes.md` e devem ser salvas normalmente no editor. O conteúdo das notas não é incluído no backup das configurações; ocultar uma janela também não garante recuperação de conteúdo não salvo após logout ou reinicialização.
+
 ## Backup e atualização
 
 ```bash

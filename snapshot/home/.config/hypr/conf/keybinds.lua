@@ -167,3 +167,11 @@ hl.bind(mainMod .. "+ SHIFT + T", hl.dsp.exec_cmd("uwsm app -- theme pick"))
 
 -- Catálogo de atalhos do ambiente.
 hl.bind(mainMod .. "+ F1", hl.dsp.exec_cmd("$HOME/.config/eww/scripts/keybinds.py"))
+
+-- OCR, perfis de monitores e janelas independentes que preservam seu estado.
+local desktop = 'python3 "$HOME/.config/hypr/scripts/desktop-tools.py"'
+hl.bind(mainMod .. "+ SHIFT + O", hl.dsp.exec_cmd(desktop .. " ocr"))
+hl.bind(mainMod .. "+ CTRL + M", hl.dsp.exec_cmd(desktop .. " monitors pick"))
+hl.bind(mainMod .. "+ CTRL + RETURN", hl.dsp.exec_cmd(desktop .. " scratch terminal"))
+hl.bind(mainMod .. "+ CTRL + N", hl.dsp.exec_cmd(desktop .. " scratch notes"))
+hl.bind(mainMod .. "+ CTRL + E", hl.dsp.exec_cmd(desktop .. " scratch files"))

@@ -22,6 +22,9 @@ rofi
 rofimoji
 grim
 slurp
+tesseract
+tesseract-data-eng
+tesseract-data-por
 satty
 wl-clipboard
 cliphist

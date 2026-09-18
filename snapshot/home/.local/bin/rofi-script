@@ -254,9 +254,10 @@ change_wallpaper() {
 # ── Submenus ──────────────────────────────────────────────────────────────────
 
 show_trigger_menu() {
-    case $(menu "Trigger" "  Screenshot (Região)\n  Screenshot (Tela Cheia)\n󰃉  Color Picker\n󰍜  Toggle Waybar\n  Toggle Gaps (Hyprland)") in
+    case $(menu "Trigger" "  Screenshot (Região)\n  Screenshot (Tela Cheia)\n󰓆  Copiar texto (OCR)\n󰃉  Color Picker\n󰍜  Toggle Waybar\n  Toggle Gaps (Hyprland)") in
         *Região*)       take_screenshot "region" ;;
         *"Tela Cheia"*) take_screenshot "fullscreen" ;;
+        *OCR*)          python3 "$HOME/.config/hypr/scripts/desktop-tools.py" ocr ;;
         *Color*)        sleep 0.25 && hyprpicker -a && notify-send -t 2000 "Color Picker" "Cor copiada" ;;
         *Waybar*)       killall -SIGUSR1 waybar ;;
         *Gaps*)         hyprctl dispatch workspaceopt allfloat ;;
@@ -265,10 +266,11 @@ show_trigger_menu() {
 }
 
 show_setup_menu() {
-    case $(menu "Setup" "  Clipboard\n  Tema\n  Wallpaper\n  Wi-Fi\n  Áudio\n  Hyprland Config\n󰍜  Waybar Config\n  Neovim Config\n  Ghostty Config") in
+    case $(menu "Setup" "  Clipboard\n  Tema\n  Wallpaper\n󰍹  Monitores\n  Wi-Fi\n  Áudio\n  Hyprland Config\n󰍜  Waybar Config\n  Neovim Config\n  Ghostty Config") in
         *Clipboard*) show_clipboard ;;
         *Tema*)      theme pick ;;
         *Wallpaper*) change_wallpaper ;;
+        *Monitores*) python3 "$HOME/.config/hypr/scripts/desktop-tools.py" monitors pick ;;
         *Wi-Fi*)     uwsm app -- nm-connection-editor ;;
         *Áudio*)     uwsm app -- ghostty --class=com.example.wiremix --command=wiremix ;;
         *Hyprland*)  open_in_editor ~/.config/hypr/hyprland.lua ;;
