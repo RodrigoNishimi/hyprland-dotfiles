@@ -17,7 +17,8 @@ ROOTS += [f'.local/bin/{b}' for b in BINS]
 ROOTS += ['.local/share/fonts', '.local/state/dotfiles/current-theme', '.local/state/dotfiles/profile']
 ROOTS += ['plugins/gruber-darker', 'plugins/present', '.config/nwg-look',
           '.local/share/nwg-look', '.config/mimeapps.list', '.config/git/ignore',
-          '.local/share/applications/claude-code-url-handler.desktop', '.bash_profile', '.bash_logout']
+          '.local/share/applications/claude-code-url-handler.desktop', '.bash_profile', '.bash_logout',
+          '.config/systemd/user/hypridle-lock-screen.service']
 ASSETS = '.local/share/hyprland-dotfiles'
 SKIP = ['.git', '__pycache__', '*.pyc', '*.bak*', '.backup*', '*~', '*.zip', 'history', '*.log', 'cover.png']
 

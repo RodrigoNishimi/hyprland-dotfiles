@@ -1,0 +1,10 @@
+[Unit]
+Description=Turn off the locked screen after 30 seconds of inactivity
+PartOf=graphical-session.target
+After=graphical-session.target
+ConditionEnvironment=WAYLAND_DISPLAY
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/hypridle --config %h/.config/hypr/hypridle-lock-screen.conf
+ExecStopPost=/usr/bin/hyprctl dispatch 'hl.dsp.dpms({ action = "enable" })'

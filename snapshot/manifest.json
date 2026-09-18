@@ -50,6 +50,7 @@
     ".local/share/applications/claude-code-url-handler.desktop",
     ".bash_profile",
     ".bash_logout",
+    ".config/systemd/user/hypridle-lock-screen.service",
     ".local/share/hyprland-dotfiles"
   ]
 }

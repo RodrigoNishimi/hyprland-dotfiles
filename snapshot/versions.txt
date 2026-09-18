@@ -669,6 +669,7 @@ rofi 2.0.0-1
 rofimoji 6.8.0-1
 rose-pine-cursor 1.1.0-2
 rsync 3.5.0-1
+rtkit 0.14-1
 rubberband 4.0.0-2
 run-parts 5.24-1
 rust 1:1.98.0-1
@@ -798,6 +799,7 @@ xxhash 0.8.3-1
 xz 5.8.3-1
 yay 13.0.1-1
 yay-debug 13.0.1-1
+yazi 26.9.1-1
 yyjson 0.12.0-1
 zathura 2026.07.18-1
 zathura-pdf-mupdf 2026.07.18-1

@@ -81,6 +81,7 @@ ripgrep
 rofi
 rofimoji
 rose-pine-cursor
+rtkit
 satty
 slurp
 socat
@@ -113,6 +114,7 @@ xdg-utils
 xorg-xwayland
 yay
 yay-debug
+yazi
 zathura-pdf-mupdf
 zen-browser-bin
 zoxide

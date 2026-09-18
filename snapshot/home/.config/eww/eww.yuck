@@ -619,77 +619,86 @@
                         )
                         (box :class "divider-h")
                         (box :class "sys"
-                            (box :class "cpu-box" 
-                                 :orientation "v" 
-                                 :space-evenly false
-                                 (eventbox :class "cpu-hover"
-                                           :tooltip " ${round(EWW_CPU.avg,1)}% used "
-                                           (circular-progress :class "cpu"
-                                                    :value {round(EWW_CPU.avg,10)}
-                                                    :thickness 5
-                                                    (box :class "cpuico"
-                                                        (label :text " ")
-                                                    )
-                                           )
-                                 )
-                                 (box :class "cpu-text"
-                                      :space-evenly false
-                                      :halign "center"
-                                      (box :class "cpu01"
-                                        "CPU "
-                                      )
-                                      (box :class "cpu02"
-                                        "${round(EWW_CPU.avg,0)}%"
-                                      )
-                                 )
+                            (eventbox :cursor "pointer"
+                                      :onclick "setsid -f ghostty -e btop"
+                                (box :class "cpu-box" 
+                                     :orientation "v" 
+                                     :space-evenly false
+                                     (eventbox :class "cpu-hover"
+                                               :tooltip " ${round(EWW_CPU.avg,1)}% used "
+                                               (circular-progress :class "cpu"
+                                                        :value {round(EWW_CPU.avg,10)}
+                                                        :thickness 5
+                                                        (box :class "cpuico"
+                                                            (label :text " ")
+                                                        )
+                                               )
+                                     )
+                                     (box :class "cpu-text"
+                                          :space-evenly false
+                                          :halign "center"
+                                          (box :class "cpu01"
+                                            "CPU "
+                                          )
+                                          (box :class "cpu02"
+                                            "${round(EWW_CPU.avg,0)}%"
+                                          )
+                                     )
+                                )
                             )
-                            (box :class "ram-box" 
-                                 :orientation "v" 
-                                 :space-evenly false
-                                 (eventbox :class "ram-hover"
-                                           :tooltip " ${round(EWW_RAM.used_mem/1073741824,1)}GB used "
-                                           (circular-progress :class "ram"
-                                                    :value {round(EWW_RAM.used_mem_perc,10)}
-                                                    :thickness 5
-                                                    (box :class "ramico"
-                                                         (label :text " ")
-                                                    )
-                                           )
-                                 )
-                                 (box :class "ram-text"
-                                      :space-evenly false
-                                      :halign "center"
-                                      (box :class "ram01"
-                                        "RAM "
-                                      )
-                                      (box :class "ram02"
-                                        "${round(EWW_RAM.used_mem_perc,0)}%"
-                                      )
-                                 )
+                            (eventbox :cursor "pointer"
+                                      :onclick "setsid -f ghostty -e btop"
+                                (box :class "ram-box" 
+                                     :orientation "v" 
+                                     :space-evenly false
+                                     (eventbox :class "ram-hover"
+                                               :tooltip " ${round(EWW_RAM.used_mem/1073741824,1)}GB used "
+                                               (circular-progress :class "ram"
+                                                        :value {round(EWW_RAM.used_mem_perc,10)}
+                                                        :thickness 5
+                                                        (box :class "ramico"
+                                                             (label :text " ")
+                                                        )
+                                               )
+                                     )
+                                     (box :class "ram-text"
+                                          :space-evenly false
+                                          :halign "center"
+                                          (box :class "ram01"
+                                            "RAM "
+                                          )
+                                          (box :class "ram02"
+                                            "${round(EWW_RAM.used_mem_perc,0)}%"
+                                          )
+                                     )
+                                )
                             )
-                            (box :class "disk-box"
-                                 :orientation "v" 
-                                 :space-evenly false 
-                                 (eventbox :class "disk-hover"
-                                           :tooltip " ${round(EWW_DISK["/"].used/1073741824,1)}GB used "
-                                           (circular-progress :class "disk"
-                                                    :value {round(EWW_DISK["/"].used_perc,10)}
-                                                    :thickness 5
-                                                    (box :class "diskico"
-                                                         (label :text " ")
-                                                    )
-                                           )
-                                 )
-                                 (box :class "disk-text"
-                                      :space-evenly false
-                                      :halign "center"
-                                      (box :class "disk01"
-                                        "DISK "
-                                      )
-                                      (box :class "disk02"
-                                        "${round(EWW_DISK["/"].used_perc,0)}%"
-                                      )
-                                 )
+                            (eventbox :cursor "pointer"
+                                      :onclick "setsid -f ghostty -e btop"
+                                (box :class "disk-box"
+                                     :orientation "v" 
+                                     :space-evenly false 
+                                     (eventbox :class "disk-hover"
+                                               :tooltip " ${round(EWW_DISK["/"].used/1073741824,1)}GB used "
+                                               (circular-progress :class "disk"
+                                                        :value {round(EWW_DISK["/"].used_perc,10)}
+                                                        :thickness 5
+                                                        (box :class "diskico"
+                                                             (label :text " ")
+                                                        )
+                                               )
+                                     )
+                                     (box :class "disk-text"
+                                          :space-evenly false
+                                          :halign "center"
+                                          (box :class "disk01"
+                                            "DISK "
+                                          )
+                                          (box :class "disk02"
+                                            "${round(EWW_DISK["/"].used_perc,0)}%"
+                                          )
+                                     )
+                                )
                             )
                         )
                         (box :class "sliderctl"

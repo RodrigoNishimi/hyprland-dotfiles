@@ -2,11 +2,20 @@
 
 Super + F1 abre/fecha o painel Eww `shortcuts`. A busca ignora maiúsculas,
 e as ações completas e suas fontes aparecem ao passar o mouse sobre as linhas.
-Os botões no topo filtram pelo nome do aplicativo; Todos limpa o filtro.
+Os botões no topo filtram pelo nome do aplicativo; Todos limpa a busca e sai
+do filtro de favoritos. Clique em ☆ para favoritar e em ★ para remover.
+Favoritos mostra apenas os atalhos marcados e permite buscar dentro deles.
+Os binds explícitos do `~/.tmux.conf` começam favoritados; teclas padrão do
+Tmux continuam na lista completa. Remoções manuais desses favoritos são respeitadas,
+inclusive após reiniciar e alterar o prefixo do Tmux.
+As escolhas ficam em `~/.local/state/eww/keybinds-favorites.json`
+(ou `$XDG_STATE_HOME/eww/keybinds-favorites.json`).
 
 Arquivos:
 - `../../shortcuts.yuck` e `../../shortcuts.scss`: interface e aparência.
 - `../keybinds.py`: coleta, busca e abertura. Cache: `~/.cache/eww/keybinds.json`.
+- `keybinds-view.json` no diretório de cache: dados enviados ao Eww por
+  `deflisten` e `inotifywait`, evitando o limite de tamanho de argumentos do sistema.
 - `hypr.lua`: avalia o módulo de binds com dispatchers inertes; expande loops
   e submaps sem executar as ações vinculadas às teclas.
 - `nvim.lua`: lê os mapas globais da configuração em uma instância headless,
@@ -29,3 +38,5 @@ executada ao clicar na lista. Atualização automática a cada abertura.
 
 Verificação manual: `../keybinds.py collect`; abrir/fechar duas vezes;
 buscar um aplicativo; buscar um texto inexistente e conferir o estado vazio.
+
+Testes de favoritos: `python -m unittest discover -s ~/.config/eww/tests -p test_keybinds.py`.

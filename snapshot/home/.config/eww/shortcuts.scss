@@ -18,3 +18,7 @@
 .shortcuts-close:hover { background: #45475a; color: #f38ba8; }
 .shortcuts-warning { color: #f9e2af; }
 .shortcuts-panel scrollbar slider { background: #585b70; min-width: 5px; border-radius: 5px; }
+
+.shortcuts-star { background: transparent; color: #a6adc8; font-size: 19px; padding: 0 4px; min-width: 24px; }
+.shortcuts-star:hover, .shortcuts-star-active { color: #f9e2af; }
+.shortcuts-filter-active { color: #f9e2af; background: #45475a; }

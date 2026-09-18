@@ -1,4 +1,6 @@
-(defvar shortcuts_groups "[]")
+(defvar shortcuts_query "")
+(defvar shortcuts_favorites_only false)
+(deflisten shortcuts_groups :initial "[]" "./scripts/keybinds.py listen")
 (defvar shortcuts_count 0)
 (defvar shortcuts_warning "")
 (defwindow shortcuts
@@ -14,14 +16,15 @@
     (label :class "shortcuts-help" :xalign 0
       :text "Super + F1 · abrir / fechar    |    Super = tecla Windows    |    Nvim: Espaço = leader")
     (box :space-evenly false :spacing 8
-      (button :class "shortcuts-close" :onclick "./scripts/keybinds.py search" "Todos")
+      (button :class "shortcuts-close" :onclick "./scripts/keybinds.py all" "Todos")
+      (button :class {shortcuts_favorites_only ? "shortcuts-close shortcuts-filter-active" : "shortcuts-close"} :onclick "./scripts/keybinds.py favorites" "★ Favoritos")
       (button :class "shortcuts-close" :onclick "./scripts/keybinds.py search Hyprland" "Hyprland")
       (button :class "shortcuts-close" :onclick "./scripts/keybinds.py search Tmux" "Tmux")
       (button :class "shortcuts-close" :onclick "./scripts/keybinds.py search Nvim" "Nvim")
       (button :class "shortcuts-close" :onclick "./scripts/keybinds.py search Yazi" "Yazi")
       (button :class "shortcuts-close" :onclick "./scripts/keybinds.py search Zsh" "Zsh"))
     (label :class "shortcuts-help" :xalign 0 :text "Buscar por tecla, ação, aplicativo ou modo:")
-    (input :class "shortcuts-search" :tooltip "Buscar por tecla, ação, aplicativo ou modo"
+    (input :text shortcuts_query :class "shortcuts-search" :tooltip "Buscar por tecla, ação, aplicativo ou modo"
       :onchange "./scripts/keybinds.py search {}")
     (label :class "shortcuts-help" :xalign 0 :text "${shortcuts_count} atalhos · n: normal / i: inserção / x: visual / o: operador / c: comando / t: terminal")
     (label :class "shortcuts-warning" :visible {shortcuts_warning != ""} :text shortcuts_warning :wrap true)
@@ -34,6 +37,10 @@
             (for row in {group.rows}
               (box :class "shortcuts-row" :space-evenly false :spacing 14
                 :tooltip "${row.description}\n\nFonte: ${row.source}"
+                (button :class {row.favorite ? "shortcuts-star shortcuts-star-active" : "shortcuts-star"}
+                  :tooltip {row.favorite ? "Remover dos favoritos" : "Adicionar aos favoritos"}
+                  :onclick "./scripts/keybinds.py favorite ${row.id}"
+                  {row.favorite ? "★" : "☆"})
                 (label :class "shortcuts-key" :xalign 0 :width 240 :limit-width 28 :text {row.key})
                 (label :class "shortcuts-context" :xalign 0 :width 165 :limit-width 20 :text {row.context})
                 (label :class "shortcuts-action" :xalign 0 :hexpand true :limit-width 88 :text {row.description})))))))
