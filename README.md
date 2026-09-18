@@ -31,6 +31,34 @@ Antes de instalar pacotes ou habilitar serviços, o script verifica o snapshot e
 
 Por padrão, usa modo preferido dos monitores, posicionamento automático e escala 1; remove as variáveis que forçavam NVIDIA para permitir a seleção normal do driver. Para HiDPI, ajuste `~/.config/hypr/conf/monitors.lua`. O snapshot original permanece preservado. Requer Hyprland compatível com a API Lua usada na versão 0.56.2 desta máquina; configurações antigas em hyprlang não são equivalentes.
 
+## Outro computador: Ryzen 5 5600 + RTX 5070 + monitor Full HD 300 Hz
+
+Execute como usuário normal, no novo computador. O perfil é opcional; a instalação padrão continua usando a seleção automática de hardware.
+
+```bash
+# Conferir o plano sem alterar o sistema:
+./install.sh --hardware ryzen5600-rtx5070 --dry-run
+
+# Instalar separadamente apenas os drivers e o microcódigo (não aplica dotfiles):
+./install.sh --hardware ryzen5600-rtx5070 --drivers-only
+
+# Instalar os aplicativos e aplicar o desktop, incluindo o monitor a 300 Hz:
+./install.sh --hardware ryzen5600-rtx5070
+
+# Se TODOS os pacotes já estiverem instalados, aplicar apenas as configurações:
+./install.sh --hardware ryzen5600-rtx5070 --skip-packages
+```
+
+O comando completo também instala os drivers; se já estiverem presentes, `--needed` evita reinstalações desnecessárias. `--extra` pode ser combinado com o perfil para incluir os aplicativos opcionais. `--drivers-only` usa apenas os repositórios oficiais via `sudo pacman`, sem precisar de paru/yay. Os comandos que instalam drivers fazem uma atualização completa com `pacman -Syu`, evitando atualização parcial do Arch.
+
+Pacotes: `amd-ucode`, `nvidia-open-dkms`, `nvidia-utils`, `libva-nvidia-driver` e os headers de cada kernel instalado entre `linux`, `linux-lts`, `linux-zen` e `linux-hardened`. Para kernels personalizados, instale o driver e os headers correspondentes manualmente e use `--skip-packages` após preparar as demais dependências. A RTX 5070 (Blackwell) requer os módulos abertos da NVIDIA, conforme a [ArchWiki](https://wiki.archlinux.org/title/NVIDIA). O perfil configura as variáveis NVIDIA no ambiente uwsm; os pacotes atuais já habilitam DRM modesetting por padrão.
+
+Quando disponível, `mkinitcpio -P` regenera as imagens após instalar os pacotes. Em instalações com initramfs/boot personalizados, confira a inclusão do microcódigo AMD: hook `microcode` do mkinitcpio ou entrada correspondente no bootloader, conforme a [documentação de microcódigo](https://wiki.archlinux.org/title/Microcode). Reinicie após instalar os drivers.
+
+O perfil configura `1920x1080@300`, posição automática e escala 1, sem presumir um conector como `DP-1`. Ele substitui os layouts de monitor do snapshot por esse padrão, utilizado também ao entrar, recarregar e conectar telas. Layouts salvos posteriormente por `Super+Ctrl+M` têm precedência. O perfil assume o único monitor de 300 Hz descrito; se conectar outros monitores, ajuste e salve a disposição individual. Reaplicar o instalador com o perfil reinicializa essas preferências.
+
+O monitor e o cabo/porta precisam oferecer 1920×1080 a 300 Hz. Após reiniciar, confira `nvidia-smi` e `hyprctl monitors all` (modo ativo e modos disponíveis). Se o monitor anunciar uma frequência fracionária ou exigir habilitar os 300 Hz no próprio menu, ajuste conforme os modos anunciados e salve a disposição. `--hardware` não pode ser combinado com `--monitors original` ou `--gpu original`; `--drivers-only` não aceita `--skip-packages` ou `--extra`.
+
 ## OCR, monitores e janelas instantâneas
 
 | Atalho | Ação |

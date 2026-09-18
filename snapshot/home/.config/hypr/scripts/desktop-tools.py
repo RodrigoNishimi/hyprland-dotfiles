@@ -98,14 +98,14 @@ def topology(monitors):
     return json.dumps(sorted((m['name'], m.get('description', '')) for m in monitors), ensure_ascii=False)
 
 
-def monitor_plan(monitors, profile):
+def monitor_plan(monitors, profile, default_mode='preferred'):
     ordered = sorted(monitors, key=lambda m: (not m['name'].startswith(('eDP-', 'LVDS-', 'DSI-')), m['name']))
     if not ordered:
         return []
     primary = ordered[0]['name']
     plan = []
     for index, monitor in enumerate(ordered):
-        plan.append(dict(output=monitor['name'], mode='preferred', position='0x0' if index == 0 else 'auto-right',
+        plan.append(dict(output=monitor['name'], mode=default_mode, position='0x0' if index == 0 else 'auto-right',
                          scale=1, transform=0, disabled=profile == 'notebook' and index > 0,
                          mirror=primary if profile == 'presentation' and index > 0 else ''))
     return plan
@@ -146,7 +146,7 @@ def monitors(action, force=False):
     profile = selected.get(key, 'auto') if action == 'apply' else action
     plan = layouts.get(key) if profile == 'auto' else None
     if not plan:
-        plan = monitor_plan(screens, profile)
+        plan = monitor_plan(screens, profile, config.get('default_mode', 'preferred'))
     # Refuse layouts that could leave the user without any usable screen.
     outputs = {m['name'] for m in screens}
     if {p['output'] for p in plan} != outputs or not any(not p.get('disabled') and not p.get('mirror') for p in plan):

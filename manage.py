@@ -164,6 +164,19 @@ def install(args):
         uwsm = stage / '.config/uwsm/env'
         if getattr(args, 'gpu', 'auto') == 'auto' and uwsm.exists():
             uwsm.write_text(''.join(line for line in uwsm.read_text().splitlines(keepends=True) if not line.startswith(('export LIBVA_DRIVER_NAME=', 'export __GLX_VENDOR_LIBRARY_NAME='))))
+        if getattr(args, 'hardware', None) == 'ryzen5600-rtx5070':
+            if args.monitors != 'auto' or getattr(args, 'gpu', 'auto') != 'auto':
+                raise ValueError('Hardware profile cannot be combined with original monitor/GPU settings')
+            if '.config/hypr' not in roots or '.config/uwsm' not in roots:
+                raise ValueError('Hardware profile requires Hyprland and uwsm in the snapshot')
+            print('Hardware: Ryzen 5 5600 / RTX 5070; monitor 1920x1080@300, scale 1')
+            (stage / '.config/hypr/conf/monitors.lua').write_text(
+                'hl.monitor({ output = "", mode = "1920x1080@300", position = "auto", scale = 1 })\n')
+            # Login/reload/hotplug profiles must keep the new hardware default.
+            (stage / '.config/hypr/monitor-profiles.json').write_text(json.dumps(
+                {'default_mode': '1920x1080@300', 'selected': {}, 'layouts': {}}, indent=2) + '\n')
+            with uwsm.open('a') as env:
+                env.write('\nexport LIBVA_DRIVER_NAME="nvidia"\nexport __GLX_VENDOR_LIBRARY_NAME="nvidia"\n')
         for rel in roots:
             check_destination(stage / rel, args.home / rel)
         if args.dry_run:
@@ -187,6 +200,7 @@ def main():
             p.add_argument('--source', type=Path, default=REPO / 'snapshot')
             p.add_argument('--monitors', choices=['auto', 'original'], default='auto')
             p.add_argument('--gpu', choices=['auto', 'original'], default='auto')
+            p.add_argument('--hardware', choices=['ryzen5600-rtx5070'])
     args = parser.parse_args()
     args.home = args.home.expanduser().resolve()
     if str(args.home) == '/':
