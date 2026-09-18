@@ -17,6 +17,8 @@ O instalador usa o helper para instalar `packages.txt`, habilita NetworkManager,
 
 **O instalador sobrescreve arquivos gerenciados sem fazer backup.** Arquivos extras são preservados. Links de configuração são substituídos por cópias sem escrever no destino antigo. Não há alteração automática do shell de login, recarga da sessão ou reinicialização. Depois, entre em uma sessão Hyprland com UWSM. Zinit e plugins do Neovim podem ser baixados na primeira abertura.
 
+Antes de instalar pacotes ou habilitar serviços, o script verifica o snapshot e os conflitos de tipo entre arquivos e diretórios no destino. `--dry-run` faz essa mesma preparação em um diretório temporário, sem alterar o HOME de destino. Essa checagem não é uma transação: falhas de disco ou permissões durante a aplicação ainda podem interromper a cópia. Execute `./backup.sh` antes se precisar preservar as configurações gerenciadas atuais.
+
 ```bash
 # Apenas aplicar os arquivos, sem instalar pacotes ou habilitar serviços:
 ./install.sh --skip-packages
@@ -65,10 +67,14 @@ Edite as fontes Lua do Eww e execute `lua ~/.config/eww/lua/build.lua` para gera
 
 ```bash
 python3 -m unittest discover -s tests -v
+bash tests/install-wrapper.sh
+bash tests/nvim-fzf-bootstrap.sh
 python3 audit.py
 bash -n install.sh backup.sh
 ```
 
 Os testes incluem aplicação em HOME temporário, repetição, preservação de arquivos extras e alvos de symlinks, captura sem backups antigos, geração Eww, `Hyprland --verify-config` e a primeira inicialização do Neovim. O teste completo requer Lua, Hyprland, Neovim e ferramentas de compilação; não inicia uma sessão Hyprland nova. A instalação dos pacotes não foi executada novamente na máquina de origem.
+
+A suíte também verifica se o snapshot pode ser instalado apenas com os arquivos visíveis ao Git, conflitos antes da sobrescrita, validação antes da instalação de pacotes, inventário vazio de pacotes externos, caminhos duplicados no manifesto e preservação dos finais de linha. O helper `ready-tmux` tem uma exceção no `.gitignore` do projeto para não ser omitido por regras globais. Ao adicionar novos arquivos, inclua-os no commit junto com o manifesto.
 
 `audit.py` compara conteúdo e permissões dos arquivos gerenciados com uma captura atual, normalizando os caminhos e adaptações dos helpers. Na revisão de 06/09/2026 foram conferidos 320 arquivos em 51 raízes. A revisão incluiu plugins locais do Neovim (`~/plugins`), preferências nwg-look, associações MIME, o lançador de URI e o ignore global do Git. As referências antigas do Telescope e tmux-sessionizer foram atualizadas; o gerenciador antigo `dots` foi aposentado. Credenciais, perfis de navegador e histórico de versões antigas não fazem parte dessa contagem.

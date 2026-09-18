@@ -3,3 +3,5 @@ __pycache__/
 backups/
 .capture-*/
 *.tar.gz
+# Required by the snapshot, even when a global Git ignore hides this helper.
+!/snapshot/home/.local/bin/ready-tmux

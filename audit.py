@@ -2,6 +2,7 @@
 """Compare a fresh normalized capture with the repository snapshot."""
 import argparse
 import contextlib
+import fnmatch
 import hashlib
 import io
 from pathlib import Path
@@ -12,7 +13,9 @@ import manage
 
 def inventory(root):
     return {str(p.relative_to(root)): (hashlib.sha256(p.read_bytes()).hexdigest(), p.stat().st_mode & 0o777)
-            for p in root.rglob('*') if p.is_file()}
+            for p in root.rglob('*') if p.is_file()
+            and not any(fnmatch.fnmatch(part, pattern)
+                        for part in p.relative_to(root).parts for pattern in manage.SKIP)}
 
 
 def main():

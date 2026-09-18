@@ -37,18 +37,24 @@ def rewrite(root, replacements):
         if not path.is_file():
             continue
         try:
-            value = path.read_text()
-        except (UnicodeError, OSError):
+            original = path.read_bytes()
+            value = original.decode('utf-8')
+        except UnicodeError:
             continue
         for old, new in replacements:
             value = value.replace(old, new)
-        path.write_text(value)
+        rewritten = value.encode('utf-8')
+        if rewritten != original:
+            path.write_bytes(rewritten)
 
 def safe_roots(roots):
+    if not isinstance(roots, list) or not all(isinstance(rel, str) for rel in roots):
+        raise ValueError('Manifest roots must be a list of paths')
     for rel in roots:
         p = Path(rel)
         if p.is_absolute() or '..' in p.parts or not p.parts or str(p) == '.':
             raise ValueError(f'Unsafe manifest path: {rel}')
+    roots = [str(Path(rel)) for rel in roots]
     if len(set(roots)) != len(roots):
         raise ValueError('Duplicate roots')
     for a in roots:
@@ -63,6 +69,20 @@ def check_parents(home, roots):
                 break
             if parent.is_symlink():
                 raise ValueError(f'Parent is a symlink; resolve manually before installation: {parent}')
+            if parent.exists() and not parent.is_dir():
+                raise ValueError(f'Directory required at {parent}')
+
+def check_destination(src, dst):
+    # Inspect the whole plan before overwriting any managed file.
+    if dst.is_symlink() or not dst.exists():
+        return
+    if src.is_dir():
+        if not dst.is_dir():
+            raise ValueError(f'Directory required at {dst}')
+        for child in src.iterdir():
+            check_destination(child, dst / child.name)
+    elif dst.is_dir():
+        raise ValueError(f'File required at {dst}')
 
 def deploy(src, dst):
     # Replace symlinks themselves, never write through them into another repo.
@@ -120,7 +140,11 @@ def capture(args):
     (stage / 'manifest.json').write_text(json.dumps({'roots': roots}, indent=2) + '\n')
     if shutil.which('pacman'):
         for flag, name in [('-Q', 'versions.txt'), ('-Qqe', 'explicit.txt'), ('-Qqm', 'foreign.txt')]:
-            (stage / name).write_text(subprocess.check_output(['pacman', flag], text=True))
+            result = subprocess.run(['pacman', flag], text=True, capture_output=True)
+            # pacman returns 1 when a query has no matches (e.g. no AUR packages).
+            if not (result.returncode == 1 and not result.stdout and not result.stderr):
+                result.check_returncode()
+            (stage / name).write_text(result.stdout)
     print(f'Snapshot: {stage} ({len(roots)} roots). Review before committing.')
 
 def install(args):
@@ -130,8 +154,6 @@ def install(args):
         if not (args.source / 'home' / rel).exists():
             raise ValueError(f'Missing source: {rel}')
         print(f'Apply: {rel}')
-    if args.dry_run:
-        return
     with tempfile.TemporaryDirectory(prefix='hyprland-dotfiles-') as temporary:
         stage = Path(temporary)
         for rel in roots:
@@ -142,6 +164,10 @@ def install(args):
         uwsm = stage / '.config/uwsm/env'
         if getattr(args, 'gpu', 'auto') == 'auto' and uwsm.exists():
             uwsm.write_text(''.join(line for line in uwsm.read_text().splitlines(keepends=True) if not line.startswith(('export LIBVA_DRIVER_NAME=', 'export __GLX_VENDOR_LIBRARY_NAME='))))
+        for rel in roots:
+            check_destination(stage / rel, args.home / rel)
+        if args.dry_run:
+            return
         for rel in roots:
             deploy(stage / rel, args.home / rel)
     print('Applied. Log in to a new Hyprland session when ready.')

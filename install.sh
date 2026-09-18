@@ -27,6 +27,8 @@ if ((dry)); then
     echo 'Dry run: dependencies from packages.txt; no packages, services or files will change.'
     exec python3 "$repo/manage.py" install --dry-run --monitors "$monitors" --gpu "$gpu"
 fi
+# Catch incomplete snapshots and destination conflicts before changing the system.
+python3 "$repo/manage.py" install --dry-run --monitors "$monitors" --gpu "$gpu"
 if (( ! skip_packages )); then
     command -v pacman >/dev/null || { echo 'Automatic package installation requires Arch Linux.' >&2; exit 1; }
     helper=''
